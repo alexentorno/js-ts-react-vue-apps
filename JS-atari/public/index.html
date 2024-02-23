@@ -1,0 +1,69 @@
+<!DOCTYPE HTML> 
+<html> 
+ 
+<head> 
+    <title> 
+        Alert Box vs Prompt Box 
+    </title> 
+</head> 
+ 
+<body style="text-align:center;" id="body"> 
+ 
+    <h1 style="color:green;"> 
+        GeeksforGeeks 
+    </h1> 
+     
+    <button onclick="alertBox()"> 
+        Show Alert Box 
+    </button> 
+    <button onclick="promptBox()"> 
+        Show Prompt Box 
+    </button> 
+     
+    <script> 
+    "use strict";
+        function showMenu({ title = "Menu", width = 100, height = 200 } = {}) {
+    alert(`${title} ${width} ${height}`);
+}
+
+
+let obj = {
+    _foo: "initial", 
+    get foo() {
+        // getter, the code executed on getting obj.propName
+        return this._foo;
+    },
+
+    set foo(value) {
+        // setter, the code executed on setting obj.propName = value
+        this._foo = value;
+    }
+}
+const sym1 = Symbol("description");
+const sym2 = Symbol("description");
+
+console.log(typeof sym1); // Вывод: "symbol"
+console.log(sym1 === sym2); // Вывод: false, так как они уникальны
+
+console.log(obj);
+console.log(obj._foo);
+console.log(obj.foo);
+obj._foo = "noway";
+console.log(obj._foo);
+console.log(obj.foo);
+obj.foo = "noway";
+console.log(obj._foo);
+console.log(obj.foo);
+
+        function alertBox(){ 
+            alert("GeeksforGeeks: This" + 
+                    " is an Alert Box."); 
+        } 
+ 
+        function promptBox(){ 
+            prompt("Enter your Name:"); 
+        } 
+    </script> 
+</body> 
+ 
+</html>   
