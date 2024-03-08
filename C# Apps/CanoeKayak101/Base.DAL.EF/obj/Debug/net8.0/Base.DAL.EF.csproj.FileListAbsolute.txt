@@ -1,0 +1,17 @@
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\bin\Debug\net8.0\Base.DAL.EF.deps.json
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\bin\Debug\net8.0\Base.DAL.EF.dll
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\bin\Debug\net8.0\Base.DAL.EF.pdb
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\bin\Debug\net8.0\Base.Contracts.DAL.dll
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\bin\Debug\net8.0\Base.Contracts.Domain.dll
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\bin\Debug\net8.0\Base.Contracts.DAL.pdb
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\bin\Debug\net8.0\Base.Contracts.Domain.pdb
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\obj\Debug\net8.0\Base.DAL.EF.csproj.AssemblyReference.cache
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\obj\Debug\net8.0\Base.DAL.EF.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\obj\Debug\net8.0\Base.DAL.EF.AssemblyInfoInputs.cache
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\obj\Debug\net8.0\Base.DAL.EF.AssemblyInfo.cs
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\obj\Debug\net8.0\Base.DAL.EF.csproj.CoreCompileInputs.cache
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\obj\Debug\net8.0\Base.DAL.A0F3D010.Up2Date
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\obj\Debug\net8.0\Base.DAL.EF.dll
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\obj\Debug\net8.0\refint\Base.DAL.EF.dll
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\obj\Debug\net8.0\Base.DAL.EF.pdb
+D:\Projects\VSProjects\icd0006-23-24-s\C# Apps\CanoeKayak101\Base.DAL.EF\obj\Debug\net8.0\ref\Base.DAL.EF.dll

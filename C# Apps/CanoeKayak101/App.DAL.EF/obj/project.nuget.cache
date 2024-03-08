@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NyitIFJH3l9HadqLrAQig6PV16LtuxBSDjaVRhi6+mDApnJK0xVa2REAKCDSvpB7tpVAzincq1CVaqt/FlNlcA==",
+  "dgSpecHash": "VEa0LsUOuyiDA714RgsYPpqEXVumLchtPJrAmzub8hgUdWwz9ywHVf5QUohGYZiAOgu4vAoXf2HMVZktbN8KNA==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\VSProjects\\icd0006-23-24-s\\C# Apps\\CanoeKayak101\\AppDAL.EF\\AppDAL.EF.csproj",
+  "projectFilePath": "D:\\Projects\\VSProjects\\icd0006-23-24-s\\C# Apps\\CanoeKayak101\\App.DAL.EF\\App.DAL.EF.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sasha\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.2\\microsoft.aspnetcore.cryptography.internal.8.0.2.nupkg.sha512",
     "C:\\Users\\sasha\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\8.0.2\\microsoft.aspnetcore.cryptography.keyderivation.8.0.2.nupkg.sha512",
@@ -21,7 +21,9 @@
     "C:\\Users\\sasha\\.nuget\\packages\\microsoft.extensions.logging\\8.0.0\\microsoft.extensions.logging.8.0.0.nupkg.sha512",
     "C:\\Users\\sasha\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\sasha\\.nuget\\packages\\microsoft.extensions.options\\8.0.2\\microsoft.extensions.options.8.0.2.nupkg.sha512",
-    "C:\\Users\\sasha\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512"
+    "C:\\Users\\sasha\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\sasha\\.nuget\\packages\\npgsql\\8.0.2\\npgsql.8.0.2.nupkg.sha512",
+    "C:\\Users\\sasha\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.2\\npgsql.entityframeworkcore.postgresql.8.0.2.nupkg.sha512"
   ],
   "logs": []
 }

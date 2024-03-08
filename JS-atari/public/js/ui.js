@@ -40,7 +40,7 @@ export default class UI{
         border.style.position = 'fixed';
 
         border.style.left = left + 'px';
-        border.style.top = top + 'px';
+        border.style.bottom = top + 'px';
 
         border.style.width = width + 'px';
         border.style.height = height + 'px';
@@ -52,12 +52,13 @@ export default class UI{
 
     drawBorder() {
         // top border
-        this.drawBorderSingle(0, 0, this.width, this.calculateScaledY(this.brain.borderThickness), 'gray');
+        this.drawBorderSingle(0, this.height - this.calculateScaledY(this.brain.borderThickness), this.width, this.calculateScaledY(this.brain.borderThickness), 'gray');
         // left
         this.drawBorderSingle(0, 0, this.calculateScaledX(this.brain.borderThickness), this.height, 'gray');
         // right
         this.drawBorderSingle(this.width - this.calculateScaledX(this.brain.borderThickness), 0, this.calculateScaledX(this.brain.borderThickness), this.height, 'gray');
-        // this.drawBorderSingle(0, this.height - this.calculateScaledY(this.brain.borderThickness), this.width, this.calculateScaledY(this.brain.borderThickness), 'red');
+        //this.drawBorderSingle(0, 0, this.width, this.calculateScaledY(this.brain.borderThickness), 'gray');
+    
     }
 
     drawPaddle(paddle) {
@@ -70,7 +71,7 @@ export default class UI{
         div.style.top = this.calculateScaledY(paddle.top) + 'px';
 
         div.style.width = this.calculateScaledX(paddle.width) + 'px';
-        div.style.height = this.calculateScaledX(paddle.height) + 'px';
+        div.style.height = this.calculateScaledY(paddle.height) + 'px';
 
         div.style.backgroundColor = paddle.color;
 

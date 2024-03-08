@@ -10,4 +10,9 @@ public class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid, IdentityUs
     AppUserRole, IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
 {
     public DbSet<Contest> Contests { get; set; } = default!;
+
+    public AppDbContext(DbContextOptions options) : base(options)
+    {
+        
+    }
 }
