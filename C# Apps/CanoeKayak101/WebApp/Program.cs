@@ -10,7 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
                        throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
-
+ 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services
@@ -87,8 +87,8 @@ static void SetupAppData(WebApplication app)
 
     var user = new AppUser()
     {
-        Email = "admin@eesti.ee",
-        UserName = "admin@eesti.ee",
+        Email = "admin@canoekayak.ee",
+        UserName = "admin@canoekayak.ee",
     };
     res = userManager.CreateAsync(user, "Kala.maja1").Result;
     if (!res.Succeeded)

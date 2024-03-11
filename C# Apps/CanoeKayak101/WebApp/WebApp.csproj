@@ -29,4 +29,24 @@
       <ProjectReference Include="..\App.DAL.EF\App.DAL.EF.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Areas\Admin\Controllers\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Areas\Admin\Views\Contests\Create.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Contests\Delete.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Contests\Details.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Contests\Edit.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Contests\Index.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Contests\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Contests\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Contests\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Contests\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Contests\Index.cshtml" />
+    </ItemGroup>
+
 </Project>
