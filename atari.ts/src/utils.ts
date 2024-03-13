@@ -1,0 +1,1 @@
+export type AllowedColors = 'red' | 'blue' | 'white' | 'black' | 'gray' | 'green' | 'orange' | 'yellow' | 'purple';

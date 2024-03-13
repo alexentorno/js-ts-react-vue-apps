@@ -1,5 +1,5 @@
-import Brain from "./brain.js";
-import UI from "./ui.js";
+import Brain from "./brain";
+import UI from "./ui";
 
 function validateIndexHtml() {
     if (document.querySelectorAll("#app").length != 1) {
@@ -10,19 +10,18 @@ function validateIndexHtml() {
     }
 }
 
-function uiDrawRepeater(ui){
+function uiDrawRepeater(ui: UI){
     setTimeout(() => {
-        ui.draw();
+        ui.draw(); 
         uiDrawRepeater(ui);
     }, 0);
 }
 
 function main() {
     validateIndexHtml();
-    let appDiv = document.querySelector("#app");
+    let appDiv = document.querySelector<HTMLDivElement>("#app")!;
     let brain = new Brain();
     let ui = new UI(brain, appDiv);
-    
 
     document.addEventListener('keydown', (e) => {
         // console.log('down', e);
@@ -35,33 +34,25 @@ function main() {
                 break; 
         }
     });
+
     document.addEventListener('keyup', (e) => {
         // console.log('up', e);
         switch (e.key) {
             case 'z': // Left
-                brain.stopMovePaddle(brain.paddle, -1);
+                brain.stopMovePaddle(brain.paddle);
                 break;
             case 'x': // Right
-                brain.stopMovePaddle(brain.paddle, 1);
+                brain.stopMovePaddle(brain.paddle);
                 break; 
         }
     });
 
-    /* document.addEventListener('keypress', (e) => {
-        console.log('press', e)
-        switch (e.key) {
-            case 'z': // Left
-                brain.startMovePaddle(brain.paddle, -1);
-                break;
-            case 'x': // Right
-                brain.startMovePaddle(brain.paddle, 1);
-                break;
-        }
-        ui.draw();
-    }); */
-    // draw ui asf as possible 
+    // draw ui as fast as possible - on repeat
     uiDrawRepeater(ui);
 }
+
+
+// https://stackoverflow.com/questions/64752006/calculate-a-position-based-on-an-angle-a-speed-and-a-starting-position
 
 // =============== ENTRY POINT ================
 console.log("App startup...");
