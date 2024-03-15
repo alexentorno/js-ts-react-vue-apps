@@ -78,6 +78,23 @@ export default class UI{
         this.appContainer.append(div);
     }
 
+    drawBall(ball){
+        let div = document.createElement('div');
+
+        div.style.zIndex = 10;
+        div.style.position = 'fixed';
+
+        div.style.left = this.calculateScaledX(ball.left) + 'px';
+        div.style.top = this.calculateScaledY(ball.top) + 'px';
+
+        div.style.width = this.calculateScaledX(ball.width) + 'px';
+        div.style.height = this.calculateScaledY(ball.height) + 'px';
+
+        div.style.backgroundColor = ball.color;
+
+        this.appContainer.append(div);
+    }
+
 
     draw() {
         // clear previous render
@@ -87,6 +104,7 @@ export default class UI{
         this.drawBorder();
         // this.drawPaddle(this.brain.leftPaddle);
         this.drawPaddle(this.brain.paddle);
+        this.drawBall(this.brain.ball);
         
     }
 

@@ -10,11 +10,28 @@ function validateIndexHtml() {
     }
 }
 
-function uiDrawRepeater(ui){
-    setTimeout(() => {
+function uiDrawRepeater(ui, brain) {
+    function gameLoop() {
+        // Update ball position
+        brain.ball.updatePosition();
+        
+        // Detect collisions with walls
+        brain.ball.detectWallCollision(brain.borderThickness);
+
+        if (brain.paddle.detectBallCollision(brain.ball)) {
+            // Reverse ball's vertical velocity to simulate bounce
+            brain.ball.velocityY = -brain.ball.velocityY;
+        }
+        
+        // Draw UI
         ui.draw();
-        uiDrawRepeater(ui);
-    }, 0);
+        
+        // Repeat game loop
+        requestAnimationFrame(gameLoop);
+    }
+
+    // Start game loop
+    gameLoop();
 }
 
 function main() {
@@ -29,9 +46,11 @@ function main() {
         switch (e.key) {
             case 'z': // Left
                 brain.startMovePaddle(brain.paddle, -1);
+                // console.log('Moving left')
                 break;
             case 'x': // Right
                 brain.startMovePaddle(brain.paddle, 1);
+                // console.log('Moving right')
                 break; 
         }
     });
@@ -40,27 +59,26 @@ function main() {
         switch (e.key) {
             case 'z': // Left
                 brain.stopMovePaddle(brain.paddle, -1);
+                //console.log('STOP LEFT')
                 break;
             case 'x': // Right
                 brain.stopMovePaddle(brain.paddle, 1);
+                //console.log('STOP RIGHT')
                 break; 
         }
     });
 
-    /* document.addEventListener('keypress', (e) => {
-        console.log('press', e)
+    /* document.addEventListener('keydown', (e) => {
         switch (e.key) {
-            case 'z': // Left
-                brain.startMovePaddle(brain.paddle, -1);
-                break;
-            case 'x': // Right
-                brain.startMovePaddle(brain.paddle, 1);
+            case 'q': // Space key for shooting
+                // Shoot the ball upward with initial velocity
+                brain.shootBall(5, -5); // Adjust the velocity as needed
                 break;
         }
-        ui.draw();
     }); */
+    
     // draw ui asf as possible 
-    uiDrawRepeater(ui);
+    uiDrawRepeater(ui, brain);
 }
 
 // =============== ENTRY POINT ================
