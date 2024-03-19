@@ -14,7 +14,7 @@ function uiDrawRepeater(ui, brain) {
     function gameLoop() {
         // Update ball position
         brain.ball.updatePosition();
-        
+
         // Detect collisions with walls
         brain.ball.detectWallCollision(brain.borderThickness);
 
@@ -22,10 +22,10 @@ function uiDrawRepeater(ui, brain) {
             // Reverse ball's vertical velocity to simulate bounce
             brain.ball.velocityY = -brain.ball.velocityY;
         }
-        
+
         // Draw UI
         ui.draw();
-        
+
         // Repeat game loop
         requestAnimationFrame(gameLoop);
     }
@@ -39,7 +39,7 @@ function main() {
     let appDiv = document.querySelector("#app");
     let brain = new Brain();
     let ui = new UI(brain, appDiv);
-    
+
 
     document.addEventListener('keydown', (e) => {
         // console.log('down', e);
@@ -51,7 +51,7 @@ function main() {
             case 'x': // Right
                 brain.startMovePaddle(brain.paddle, 1);
                 // console.log('Moving right')
-                break; 
+                break;
         }
     });
     document.addEventListener('keyup', (e) => {
@@ -64,19 +64,10 @@ function main() {
             case 'x': // Right
                 brain.stopMovePaddle(brain.paddle, 1);
                 //console.log('STOP RIGHT')
-                break; 
+                break;
         }
     });
 
-    /* document.addEventListener('keydown', (e) => {
-        switch (e.key) {
-            case 'q': // Space key for shooting
-                // Shoot the ball upward with initial velocity
-                brain.shootBall(5, -5); // Adjust the velocity as needed
-                break;
-        }
-    }); */
-    
     // draw ui asf as possible 
     uiDrawRepeater(ui, brain);
 }
