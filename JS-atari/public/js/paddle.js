@@ -36,16 +36,16 @@ export class Paddle {
     startMove(step, borderThickness) {
         if (this.#intervalId !== null) {
             //console.log(this.#intervalId)
-            console.log(this.top)
+            //console.log(this.top)
             return;
         }
 
         this.#intervalId = setInterval(() => {
-            this.left += step * 30;
+            this.left += step * 9;
             // 0 - border
             this.validateAndFixPosition(borderThickness);
 
-        }, 40);
+        }, 10);
 
     }
 

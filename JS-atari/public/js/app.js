@@ -13,7 +13,10 @@ function validateIndexHtml() {
 function uiDrawRepeater(ui, brain) {
     function gameLoop() {
         // Update ball position
-        brain.ball.updatePosition();
+        if (!brain.paused && brain.gameStarted) {
+            brain.ball.updatePosition();
+        }
+
 
         // Detect collisions with walls
         brain.ball.detectWallCollision(brain.borderThickness);
@@ -22,12 +25,17 @@ function uiDrawRepeater(ui, brain) {
         for (let row = 0; row < ui.bricks.length; row++) {
             for (let col = 0; col < ui.bricks[row].length; col++) {
                 let brick = ui.bricks[row][col];
-                if (!brick.isDestroyed && brick.hasTouched(brain.ball)) {
-                    brick.isDestroyed = true;
-                    console.log(brick.isDestroyed);
-                    console.log(ui.bricks);
+                if (!brick.isDestroyed && brick.hasTouched(brain.ball).collision) {
+                    brick.livesLeft--;
+                    if (brick.livesLeft == 0) {
+                        brain.destroyBrick(brick);
+                    }
 
-                    brain.ball.velocityY = -brain.ball.velocityY;
+                    if (brick.hasTouched(brain.ball).collisionDirection == 'topOrBottom') {
+                        brain.ball.velocityY = -brain.ball.velocityY;
+                    } else if (brick.hasTouched(brain.ball).collisionDirection == 'side') {
+                        brain.ball.velocityX = -brain.ball.velocityX;
+                    }
                 }
             }
         }
@@ -38,8 +46,15 @@ function uiDrawRepeater(ui, brain) {
             brain.ball.velocityY = -brain.ball.velocityY;
         }
 
+
         // Draw UI
         ui.draw();
+
+        if (brain.isGameOver()) {
+            ui.drawGameOver(); // Display "Game Over" text
+            return; // Exit game loop
+        }
+
 
         // Repeat game loop
         requestAnimationFrame(gameLoop);
@@ -61,12 +76,13 @@ function main() {
         switch (e.key) {
             case 'z': // Left
                 brain.startMovePaddle(brain.paddle, -1);
-                console.log('Moving left')
+                //console.log('Moving left')
                 break;
             case 'x': // Right
                 brain.startMovePaddle(brain.paddle, 1);
                 // console.log('Moving right')
                 break;
+
         }
     });
     document.addEventListener('keyup', (e) => {
@@ -74,12 +90,18 @@ function main() {
         switch (e.key) {
             case 'z': // Left
                 brain.stopMovePaddle(brain.paddle, -1);
-                console.log('STOP LEFT')
+                //console.log('STOP LEFT')
                 break;
             case 'x': // Right
                 brain.stopMovePaddle(brain.paddle, 1);
                 //console.log('STOP RIGHT')
                 break;
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === ' ' && !brain.gameStarted) { // Check if space is pressed and game has not started
+            brain.shootBall(3, -5); // Example velocity, adjust as needed
         }
     });
 

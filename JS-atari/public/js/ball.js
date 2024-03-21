@@ -6,8 +6,8 @@ export class Ball {
 
     color = 'white';
 
-    velocityX = 4; // Initial velocity along X-axis
-    velocityY = -4; // Initial velocity along Y-axis
+    velocityX = 0; // Initial velocity along X-axis
+    velocityY = 0; // Initial velocity along Y-axis
 
     constructor(left, top, color) {
         this.left = left;
