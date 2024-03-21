@@ -12,4 +12,31 @@ export class Brick {
         this.top = top;
         this.color = color;
     }
+
+    hasTouched(ball) {
+        // Calculate the sides of the brick and ball
+        const brickLeft = this.left;
+        const brickRight = this.left + Brick.width;
+        const brickTop = this.top;
+        const brickBottom = this.top + Brick.height;
+
+        const ballLeft = ball.left;
+        const ballRight = ball.left + ball.width;
+        const ballTop = ball.top;
+        const ballBottom = ball.top + ball.height;
+
+        // Check for collision
+        if (
+            brickRight >= ballLeft &&
+            brickLeft <= ballRight &&
+            brickBottom >= ballTop &&
+            brickTop <= ballBottom
+        ) {
+            // Collision detected
+            return true;
+        }
+
+        // No collision detected
+        return false;
+    }
 }

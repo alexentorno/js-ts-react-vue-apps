@@ -22,6 +22,7 @@ export default class UI {
 
 
         console.log(this.bricks)
+        this.generateBricks();
     }
 
     setScreenDimensions(width, height) {
@@ -30,8 +31,6 @@ export default class UI {
 
         this.scaleX = this.width / this.brain.width;
         this.scaleY = this.height / this.brain.height;
-
-        this.generateBricks();
     }
 
     calculateScaledX(x) {
@@ -106,6 +105,7 @@ export default class UI {
     }
 
     generateBricks() {
+        console.log('generate bricks called');
         const numCols = 10; // Number of columns
         const numRows = 5;  // Number of rows
         const brickPadding = 10; // Padding between bricks
@@ -136,7 +136,7 @@ export default class UI {
                     div.style.zIndex = 10;
                     div.style.position = 'fixed';
                     div.style.left = this.calculateScaledX(brick.left) + 'px';
-                    div.style.top = this.calculateScaledY(brick.top) + Brick.offsetTop / 2 + 'px';
+                    div.style.top = this.calculateScaledY(brick.top) + 'px';
                     div.style.width = this.calculateScaledX(Brick.width) + 'px';
                     div.style.height = this.calculateScaledY(Brick.height) + 'px';
                     div.style.backgroundColor = brick.color;
@@ -156,6 +156,7 @@ export default class UI {
         // this.drawPaddle(this.brain.leftPaddle);
         this.drawPaddle(this.brain.paddle);
         this.drawBall(this.brain.ball);
+        //console.log(this.brain.ball);
 
         this.drawBricks();
     }

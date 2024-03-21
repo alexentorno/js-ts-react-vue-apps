@@ -29,4 +29,6 @@ export class Ball {
             this.velocityY = -this.velocityY; // Reverse Y velocity on wall collision
         }
     }
+
+
 }

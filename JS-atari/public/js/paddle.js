@@ -6,7 +6,6 @@ export class Paddle {
 
     color = 'blue';
 
-    #isMoving = false;
     #intervalId = null;
 
     constructor(left, top, color) {
@@ -35,11 +34,11 @@ export class Paddle {
     }
 
     startMove(step, borderThickness) {
-        if (this.#intervalId !== null){
+        if (this.#intervalId !== null) {
             //console.log(this.#intervalId)
             console.log(this.top)
             return;
-        } 
+        }
 
         this.#intervalId = setInterval(() => {
             this.left += step * 30;
