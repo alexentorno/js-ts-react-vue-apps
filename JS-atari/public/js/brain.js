@@ -1,8 +1,6 @@
 import { Ball } from "./ball.js";
 import { Paddle } from "./paddle.js";
 
-
-
 export default class Brain {
     width = 1000;
     height = 1000;

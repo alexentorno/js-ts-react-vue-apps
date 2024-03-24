@@ -17,11 +17,6 @@ export default class UI {
         this.brain = brain;
         this.appContainer = appContainer;
         this.setScreenDimensions();
-
-        console.log(this);
-
-
-        console.log(this.bricks)
         this.generateBricks();
     }
 
@@ -204,16 +199,80 @@ export default class UI {
         this.appContainer.appendChild(gameOverDiv);
     }
 
+    drawPauseMenu() {
+
+        let gamePauseDiv = document.createElement('div');
+        gamePauseDiv.id = 'gamePauseDiv'; // Set id for the pause menu div
+        gamePauseDiv.style.position = 'fixed';
+        gamePauseDiv.style.top = '50%';
+        gamePauseDiv.style.left = '50%';
+        gamePauseDiv.style.transform = 'translate(-50%, -50%)';
+        gamePauseDiv.style.color = 'white';
+        gamePauseDiv.style.fontSize = '36px';
+        gamePauseDiv.textContent = 'Game Paused';
+        this.appContainer.appendChild(gamePauseDiv);
+    }
+
+    deletePauseMenu() {
+        console.log('deleted pause menu')
+        const gamePauseDiv = document.getElementById('gamePauseDiv');
+        if (gamePauseDiv) {
+            this.appContainer.removeChild(gamePauseDiv);
+        }
+    }
+
     createPauseButton() {
         let pauseButton = document.createElement('button');
         pauseButton.textContent = 'Pause';
+
         pauseButton.style.position = 'fixed';
-        pauseButton.style.bottom = '20px'; // Adjust the bottom position as needed
-        pauseButton.style.left = '50%'; // Center horizontally
-        pauseButton.style.transform = 'translateX(-50%)'; // Center horizontally
-        pauseButton.addEventListener('click', () => {
-            this.brain.togglePause();
-        });
+        pauseButton.style.transform = 'translatey(100%)';
+
+        // Function to update button position and size on resize
+        const updateButtonPosition = () => {
+            const scaledX = this.calculateScaledX(100); // Calculate scaled X position for button
+            const scaledY = this.calculateScaledY(100) * 0.8; // Calculate scaled Y position for button
+
+            pauseButton.style.left = `${scaledX}px`; // Update button left position based on window width
+            pauseButton.style.bottom = `${scaledY}px`; // Update button bottom position based on window height
+
+            // Adjust button font size based on window width and height
+            const fontSize = Math.min(scaledX, scaledY) * 0.3; // Set font size as a fraction of button size
+            pauseButton.style.fontSize = `${fontSize}px`; // Apply font size to button
+        };
+
+        // Add event listener for window resize
+        window.addEventListener('resize', updateButtonPosition);
+
+
+        // CSS styles for the button (same as before)
+        pauseButton.style.fontFamily = 'Arial, sans-serif';
+        pauseButton.style.fontSize = '18px';
+        pauseButton.style.padding = '7px 10px';
+        pauseButton.style.border = '2px solid #ffffff';
+        pauseButton.style.borderRadius = '1.5em';
+        pauseButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        pauseButton.style.color = '#ffffff';
+        pauseButton.style.cursor = 'pointer';
+
+
+        pauseButton.onclick = () => {
+            if (this.brain.paused) {
+                this.brain.paused = false; // Unpause the game
+                pauseButton.textContent = 'Pause'; // Update button text
+                console.log('was paused. game is now running')
+
+            } else {
+                console.log('paused')
+                this.brain.paused = true; // Pause the game
+                pauseButton.textContent = 'Resume'; // Update button text
+
+            }
+        };
+
+        // Initial positioning of the button
+        updateButtonPosition();
+
         this.appContainer.appendChild(pauseButton);
     }
 
@@ -221,14 +280,15 @@ export default class UI {
         // clear previous render
         this.appContainer.innerHTML = '';
         this.setScreenDimensions();
-
         this.drawBorder();
-        // this.drawPaddle(this.brain.leftPaddle);
         this.drawPaddle(this.brain.paddle);
         this.drawBall(this.brain.ball);
-        //console.log(this.brain.ball);
 
         this.drawBricks();
+
+        if (this.brain.paused) {
+            this.drawPauseMenu();
+        }
 
         this.createPauseButton();
 

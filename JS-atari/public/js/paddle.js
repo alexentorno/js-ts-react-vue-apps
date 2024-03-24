@@ -19,27 +19,19 @@ export class Paddle {
             this.left = borderThickness;
             clearInterval(this.#intervalId);
             this.#intervalId = null;
-            //console.log('Interval in cleared')
-            //console.log(this.#intervalId)
         }
 
         if ((this.left + this.width) > 1000 - borderThickness) {
             this.left = (1000 - borderThickness) - (this.width);
             clearInterval(this.#intervalId);
             this.#intervalId = null;
-            //console.log('Interval in cleared')
-            //console.log(this.#intervalId)
         }
-        //console.log(this.left);
     }
 
     startMove(step, borderThickness) {
         if (this.#intervalId !== null) {
-            //console.log(this.#intervalId)
-            //console.log(this.top)
             return;
         }
-
         this.#intervalId = setInterval(() => {
             this.left += step * 9;
             // 0 - border
