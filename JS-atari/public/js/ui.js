@@ -178,11 +178,17 @@ export default class UI {
     drawTotalScore(totalScore) {
         let scoreDiv = document.createElement('div');
         scoreDiv.style.position = 'fixed';
+        scoreDiv.style.fontFamily = 'Arial, sans-serif';
         scoreDiv.style.bottom = '10px';
         scoreDiv.style.left = '50%';
         scoreDiv.style.transform = 'translateX(-50%)';
         scoreDiv.style.color = 'white';
-        scoreDiv.style.fontSize = '24px';
+
+        const scaledX = this.calculateScaledX(100) * 0.4; // Calculate scaled X position for button
+        const scaledY = this.calculateScaledY(100) * 0.7;
+        const fontSize = Math.min(scaledX, scaledY) * 0.5;
+        scoreDiv.style.fontSize = `${fontSize}px`;
+
         scoreDiv.textContent = 'Total Score: ' + totalScore;
         this.appContainer.appendChild(scoreDiv);
     }
@@ -200,7 +206,6 @@ export default class UI {
     }
 
     drawPauseMenu() {
-
         let gamePauseDiv = document.createElement('div');
         gamePauseDiv.id = 'gamePauseDiv'; // Set id for the pause menu div
         gamePauseDiv.style.position = 'fixed';
@@ -221,57 +226,34 @@ export default class UI {
         }
     }
 
-    createPauseButton() {
-        let pauseButton = document.createElement('button');
-        pauseButton.textContent = 'Pause';
+    updateTextScaleAndPosition(htmlElement) {
+        const scaledX = this.calculateScaledX(100) * 0.4; // Calculate scaled X position for button
+        const scaledY = this.calculateScaledY(100) * 0.7; // Calculate scaled Y position for button
 
+        htmlElement.style.left = `${scaledX}px`;
+        htmlElement.style.bottom = `${scaledY * 0.8}px`;
+
+
+        const fontSize = Math.min(scaledX, scaledY) * 0.4;
+        htmlElement.style.fontSize = `${fontSize}px`;
+    }
+
+    createPauseButton() {
+        let pauseButton = document.createElement('div');
+        pauseButton.textContent = 'p - Pause on / off';
+        pauseButton.id = 'pauseButton';
         pauseButton.style.position = 'fixed';
         pauseButton.style.transform = 'translatey(100%)';
 
-        // Function to update button position and size on resize
-        const updateButtonPosition = () => {
-            const scaledX = this.calculateScaledX(100); // Calculate scaled X position for button
-            const scaledY = this.calculateScaledY(100) * 0.8; // Calculate scaled Y position for button
-
-            pauseButton.style.left = `${scaledX}px`; // Update button left position based on window width
-            pauseButton.style.bottom = `${scaledY}px`; // Update button bottom position based on window height
-
-            // Adjust button font size based on window width and height
-            const fontSize = Math.min(scaledX, scaledY) * 0.3; // Set font size as a fraction of button size
-            pauseButton.style.fontSize = `${fontSize}px`; // Apply font size to button
-        };
-
         // Add event listener for window resize
-        window.addEventListener('resize', updateButtonPosition);
+        window.addEventListener('resize', this.updateTextScaleAndPosition(pauseButton));
 
-
-        // CSS styles for the button (same as before)
         pauseButton.style.fontFamily = 'Arial, sans-serif';
-        pauseButton.style.fontSize = '18px';
+        pauseButton.style.fontSize = '16px';
         pauseButton.style.padding = '7px 10px';
-        pauseButton.style.border = '2px solid #ffffff';
-        pauseButton.style.borderRadius = '1.5em';
-        pauseButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+
         pauseButton.style.color = '#ffffff';
-        pauseButton.style.cursor = 'pointer';
-
-
-        pauseButton.onclick = () => {
-            if (this.brain.paused) {
-                this.brain.paused = false; // Unpause the game
-                pauseButton.textContent = 'Pause'; // Update button text
-                console.log('was paused. game is now running')
-
-            } else {
-                console.log('paused')
-                this.brain.paused = true; // Pause the game
-                pauseButton.textContent = 'Resume'; // Update button text
-
-            }
-        };
-
-        // Initial positioning of the button
-        updateButtonPosition();
+        this.updateTextScaleAndPosition(pauseButton);
 
         this.appContainer.appendChild(pauseButton);
     }

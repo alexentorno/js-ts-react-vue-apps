@@ -40,6 +40,8 @@ function gameLoop(ui, brain) {
     // Draw UI
     ui.draw();
 
+
+
     if (brain.isGameOver()) {
         ui.drawGameOver(); // Display "Game Over" text
         return; // Exit game loop
@@ -70,24 +72,49 @@ function uiDrawRepeater(ui, brain) {
     gameLoop(ui, brain);
 }
 
+function start() {
+
+    let appDiv = document.querySelector("#app");
+    let startMenu = new StartMenu(appDiv);
+    startMenu.drawStartMenu();
+    console.log('start menu drawn')
+
+    // Add event listener to start the game when any key is pressed
+    document.addEventListener('keydown', function startGame(e) {
+        // Hide the start menu
+        startMenu.hideStartMenu();
+        // Remove the event listener to avoid starting multiple games
+        document.removeEventListener('keydown', startGame);
+        // Start the game
+        main();
+    });
+}
+
 function main() {
-    validateIndexHtml();
+    //validateIndexHtml();
     let appDiv = document.querySelector("#app");
     let brain = new Brain();
     let ui = new UI(brain, appDiv);
 
-    /* let startMenu = new StartMenu(appDiv);
-    startMenu.drawStartMenu();
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'q') {
+            // Freeze the game
+            brain.paused = true;
+            // Display dialog box
+            const saveScore = confirm("Do you want to save your score before exiting?");
+            if (saveScore) {
+                // Save score to local storage
+                const score = brain.totalScore;
+                const highScore = localStorage.getItem('highScore') || 0;
+                if (score > highScore) {
+                    localStorage.setItem('highScore', score);
+                }
+            }
+            // Exit the game
+            window.location.reload();
+            return;
+        }
 
-    // Add event listener to start the game when any key is pressed
-    document.addEventListener('keydown', (e) => {
-        // Hide the start menu
-        startMenu.hideStartMenu();
-        // Start the game
-        uiDrawRepeater(ui, brain);
-    });
- */
-    document.addEventListener('keydown', (e) => {
         if (!brain.paused) {
             switch (e.key) {
                 case 'z': // Left
@@ -100,6 +127,8 @@ function main() {
         }
 
     });
+
+
 
     document.addEventListener('keyup', (e) => {
 
@@ -120,10 +149,20 @@ function main() {
         }
     });
 
+    document.addEventListener('keydown', (e) => {
+        switch (e.key) {
+            case 'p':
+                brain.togglePause();
+                break;
+        }
+    });
+
     // draw ui as soon as possible 
     uiDrawRepeater(ui, brain);
 }
 
 // Entry point
 console.log("App startup...");
-main();
+validateIndexHtml();
+start();
+

@@ -69,4 +69,5 @@ export default class Brain {
     togglePause() {
         this.paused = !this.paused;
     }
+
 }
