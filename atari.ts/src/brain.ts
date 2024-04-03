@@ -1,97 +1,89 @@
-import { AllowedColors } from "./utils";
+import Ball from "./ball.js";
+import Brick from "./brick.js";
+import Paddle from "./paddle.js";
 
-export class Paddle {
-    private _width: number = 150;
-    private _height: number = 40;
-    /* private _left: number = 0;
-    private _top: number = 0; */
+export default class Brain {
+    private _width = 1000;
+    private _height = 1000;
+    private _borderThickness = 30;
 
+    private _totalScore = 0;
 
-    private intervalId: number | undefined = undefined;
+    public paused = false;
 
-    constructor(private _left: number, private _top: number, private _color: AllowedColors = "blue") {
-    }
+    // leftPaddle = new Paddle(50,200, 'green');
+    paddle = new Paddle(400, 900, 'blue');
 
-    public get left() {
-        return this._left;
-    }
+    ball = new Ball(500, 870, 'white');
 
-    public get top() {
-        return this._top;
+    gameStarted = false; // Flag to track whether the game has started or not
+
+    constructor() {
     }
 
     public get width() {
         return this._width;
     }
-    
+
     public get height() {
         return this._height;
     }
 
-    public get color() {
-        return this._color;
+    public get borderThickness() {
+        return this._borderThickness;
     }
 
-    validateAndFixPosition(borderThickness: number): void {
-        if (this._left < borderThickness) {
-            this._left = borderThickness;
-            clearInterval(this.intervalId);
-            this.intervalId = undefined;
+    public get totalScore() {
+        return this._totalScore;
+    }
+
+    shootBall(velocityX: number, velocityY: number) {
+        if (!this.gameStarted) { // Check if the game has started
+            this.ball.velocityX = velocityX;
+            this.ball.velocityY = velocityY;
+            this.gameStarted = true; // Set gameStarted flag to true
+        }
+    }
+
+    destroyBrick(brick: Brick) {
+        // Increment total score based on brick color
+        switch (brick.color) {
+            case 'blue':
+                this._totalScore += 100;
+                break;
+            case 'green':
+                this._totalScore += 200;
+                break;
+            case 'yellow':
+                this._totalScore += 300;
+                break;
+            case 'orange':
+                this._totalScore += 400;
+                break;
+            case 'red':
+                this._totalScore += 500;
+                break;
         }
 
-        if ((this._left + this._width) > 1000 - borderThickness) {
-            this._left = (1000 - borderThickness) - (this._width);
-            clearInterval(this.intervalId);
-            this.intervalId = undefined;
-        }
-
-        console.log(this._left);
+        // Set brick as destroyed
+        brick.isDestroyed = true;
     }
 
-    startMove(step: number, borderThickness: number): void {
-        if (this.intervalId !== undefined) return;
-
-        this.intervalId = setInterval(() => {
-            this._left += step * 30;
-            // 0 - border
-            this.validateAndFixPosition(borderThickness);
-
-        }, 40);
-
-    }
-
-    stopMove(borderThickness: number): void {
-        if (!this.intervalId) return;
-        clearInterval(this.intervalId);
-        this.intervalId = undefined;
-        this.validateAndFixPosition(borderThickness);
-    }
-}
-
-
-export class Ball {
-
-}
-
-
-export default class Brain {
-    readonly width = 1000;
-    readonly height = 1000;
-    readonly borderThickness = 30;
-
-    readonly paddle = new Paddle(400, 900, 'blue');
-
-
-    constructor() {
-        console.log("Brain ctor");
-    }
-
-    startMovePaddle(paddle: Paddle, step: number): void {
+    startMovePaddle(paddle: Paddle, step: number) {
+        //console.log('Start Move Paddle Function')
         paddle.startMove(step, this.borderThickness);
     }
 
     stopMovePaddle(paddle: Paddle) {
         paddle.stopMove(this.borderThickness);
+    }
+
+    isGameOver() {
+        return this.ball.top > this.height; // Check if the ball has flown under the paddle
+    }
+
+    togglePause() {
+        this.paused = !this.paused;
     }
 
 }

@@ -1,1 +1,9 @@
-export type AllowedColors = 'red' | 'blue' | 'white' | 'black' | 'gray' | 'green' | 'orange' | 'yellow' | 'purple';
+export type AllowedColors =
+    'red' |
+    'orange' |
+    'yellow' |
+    'green' |
+    'blue' |
+    'white' |
+    'black' |
+    'gray';
