@@ -3,6 +3,7 @@ export default class StartMenu {
         this.appContainer = appContainer;
     }
 
+    //MOVE
     drawStartMenu() {
         // Create and append elements for the start menu
         let startMenuDiv = document.createElement('div');

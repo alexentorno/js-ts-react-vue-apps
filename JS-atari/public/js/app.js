@@ -40,7 +40,13 @@ function gameLoop(ui, brain) {
     // Draw UI
     ui.draw();
 
-
+    let allBricksDestroyed = ui.bricks.every(row => row.every(brick => brick.isDestroyed));
+    if (allBricksDestroyed) {
+        brain.paused = true;
+        let happyEndMenu = new HappyEndMenu();
+        happyEndMenu.drawGameEndMenu();
+        return;
+    }
 
     if (brain.isGameOver()) {
         ui.drawGameOver(); // Display "Game Over" text

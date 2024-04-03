@@ -1,5 +1,6 @@
 import { Brick } from "./brick.js";
 
+
 export default class UI {
 
     width = -1;
@@ -37,22 +38,21 @@ export default class UI {
     }
 
     drawBorderSingle(left, top, width, height, color) {
-        let div = document.createElement('div');
+        let divBorder = document.createElement('div');
 
-        div.style.zIndex = 10;
-        div.style.position = 'fixed';
+        divBorder.style.zIndex = 10;
+        divBorder.style.position = 'fixed';
 
-        div.style.left = left + 'px';
-        div.style.bottom = top + 'px';
+        divBorder.style.left = left + 'px';
+        divBorder.style.bottom = top + 'px';
 
-        div.style.width = width + 'px';
-        div.style.height = height + 'px';
-        div.style.backgroundColor = color;
+        divBorder.style.width = width + 'px';
+        divBorder.style.height = height + 'px';
+        divBorder.style.backgroundColor = color;
 
-        this.appContainer.append(div);
+        this.appContainer.append(divBorder);
 
     }
-
 
     drawBorder() {
         // top border
@@ -105,8 +105,6 @@ export default class UI {
         const numRows = 5;  // Number of rows
         const brickPadding = 5; // Padding between bricks
 
-        // Calculate the available space between the left and right borders
-        const availableWidth = this.width - numCols * Brick.width - (numCols - 1) * brickPadding;
         //const horizontalPadding = availableWidth / 2;
 
         const rowColors = ['red', 'orange', 'yellow', 'green', 'blue']; // Define colors for each row
@@ -205,6 +203,19 @@ export default class UI {
         this.appContainer.appendChild(gameOverDiv);
     }
 
+    drawGameEndMenu() {
+        // Create and append elements for the game end menu
+        let gameEndMenuDiv = document.createElement('div');
+        gameEndMenuDiv.textContent = 'Congratulations! You Won!';
+        gameEndMenuDiv.style.position = 'fixed';
+        gameEndMenuDiv.style.top = '50%';
+        gameEndMenuDiv.style.left = '50%';
+        gameEndMenuDiv.style.transform = 'translate(-50%, -50%)';
+        gameEndMenuDiv.style.color = 'white';
+        gameEndMenuDiv.style.fontSize = '24px';
+        this.appContainer.appendChild(gameEndMenuDiv);
+    }
+
     drawPauseMenu() {
         let gamePauseDiv = document.createElement('div');
         gamePauseDiv.id = 'gamePauseDiv'; // Set id for the pause menu div
@@ -216,14 +227,6 @@ export default class UI {
         gamePauseDiv.style.fontSize = '36px';
         gamePauseDiv.textContent = 'Game Paused';
         this.appContainer.appendChild(gamePauseDiv);
-    }
-
-    deletePauseMenu() {
-        console.log('deleted pause menu')
-        const gamePauseDiv = document.getElementById('gamePauseDiv');
-        if (gamePauseDiv) {
-            this.appContainer.removeChild(gamePauseDiv);
-        }
     }
 
     updateTextScaleAndPosition(htmlElement) {
@@ -238,12 +241,12 @@ export default class UI {
         htmlElement.style.fontSize = `${fontSize}px`;
     }
 
-    createPauseButton() {
+    drawPauseText() {
         let pauseButton = document.createElement('div');
         pauseButton.textContent = 'p - Pause on / off';
         pauseButton.id = 'pauseButton';
         pauseButton.style.position = 'fixed';
-        pauseButton.style.transform = 'translatey(100%)';
+        pauseButton.style.transform = 'translateY(100%)';
 
         // Add event listener for window resize
         window.addEventListener('resize', this.updateTextScaleAndPosition(pauseButton));
@@ -257,6 +260,27 @@ export default class UI {
 
         this.appContainer.appendChild(pauseButton);
     }
+
+    drawExitText() {
+        let exitGame = document.createElement('div');
+        exitGame.textContent = 'q - Quit Game';
+        exitGame.id = 'quitText';
+        exitGame.style.position = 'fixed';
+        exitGame.style.bottom = '10px'; // Position at the bottom
+        exitGame.style.left = '10px'; // Position at the right side
+
+        // Add event listener for window resize
+        window.addEventListener('resize', () => this.updateTextScaleAndPosition(exitGame));
+
+        exitGame.style.fontFamily = 'Arial, sans-serif';
+        exitGame.style.fontSize = '16px';
+        exitGame.style.padding = '7px 10px';
+        exitGame.style.color = '#ffffff';
+        this.updateTextScaleAndPosition(exitGame);
+
+        this.appContainer.appendChild(exitGame);
+    }
+
 
     draw() {
         // clear previous render
@@ -272,9 +296,11 @@ export default class UI {
             this.drawPauseMenu();
         }
 
-        this.createPauseButton();
+        this.drawPauseText();
 
         this.drawTotalScore(this.brain.totalScore);
+
+        this.drawExitText();
     }
 
 }
