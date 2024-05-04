@@ -7,8 +7,8 @@ import { useContext, useState } from "react";
 
 export default function Login() {
     const router = useRouter();
-    const [email, setEmail] = useState("test@eesti.ee");
-    const [pwd, setPwd] = useState("Kala.maja1");
+    const [email, setEmail] = useState("alpekh@gmail.com");
+    const [pwd, setPwd] = useState("First_1");
 
     const [validationError, setvalidationError] = useState("");
 

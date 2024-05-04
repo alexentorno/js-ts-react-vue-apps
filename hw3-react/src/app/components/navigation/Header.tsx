@@ -26,7 +26,6 @@ export default function Header() {
                             <li className="nav-item">
                                 <Link href="/todo/priorities" className="nav-link text-dark">Priorities</Link>
                             </li>
-
                         </ul>
                         <Identity />
                     </div>

@@ -56,11 +56,13 @@ export default class UI {
 
     drawBorder() {
         // top border
-        this.drawBorderSingle(0, this.height - this.calculateScaledY(this.brain.borderThickness), this.width, this.calculateScaledY(this.brain.borderThickness), 'gray');
+        this.drawBorderSingle(0, this.height - this.calculateScaledY(this.brain.borderThickness), this.width,
+            this.calculateScaledY(this.brain.borderThickness), 'gray');
         // left
         this.drawBorderSingle(0, 0, this.calculateScaledX(this.brain.borderThickness), this.height, 'gray');
         // right
-        this.drawBorderSingle(this.width - this.calculateScaledX(this.brain.borderThickness), 0, this.calculateScaledX(this.brain.borderThickness), this.height, 'gray');
+        this.drawBorderSingle(this.width - this.calculateScaledX(this.brain.borderThickness), 0,
+            this.calculateScaledX(this.brain.borderThickness), this.height, 'gray');
         //this.drawBorderSingle(0, 0, this.width, this.calculateScaledY(this.brain.borderThickness), 'gray');
 
     }

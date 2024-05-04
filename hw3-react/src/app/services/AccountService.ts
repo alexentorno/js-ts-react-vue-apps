@@ -19,6 +19,7 @@ export default class AccountService {
         try {
             const response = await AccountService.httpClient.post<IUserInfo>("login", loginData);
             if (response.status < 300) {
+                localStorage.setItem('token', JSON.stringify(response.data));
                 return {
                     data: response.data
                 }

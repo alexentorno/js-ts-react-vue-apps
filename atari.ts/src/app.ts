@@ -159,7 +159,7 @@ function main() {
 
     document.addEventListener('keydown', (e) => {
         if (e.key === ' ' && !brain.gameStarted) {
-            brain.shootBall(3, -5);
+            brain.shootBall(3, -11);
         }
     });
 

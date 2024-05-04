@@ -1,23 +1,31 @@
 "use client"
 
 import { ICategory } from "@/domain/ICategory";
-import CategoryService from "@/services/CategoryService";
+import { GetService } from "@/services/DomainService";
 import { AppContext } from "@/state/AppContext";
 import { useContext, useEffect, useState } from "react";
+import formatDate from "../FormatDate";
+import AutoLogin from "../autoLogin";
+import Link from "next/link";
 
 export default function Categories() {
+    //AutoLogin();
     const [isLoading, setIsLoading] = useState(true);
     const [categories, setCategories] = useState<ICategory[]>([]);
     const { userInfo, setUserInfo } = useContext(AppContext)!;
 
 
     const loadData = async () => {
-        const response = await CategoryService.getAll(userInfo!.token)
-        if (response.data) {
-            setCategories(response.data);
+        try {
+            const response = await GetService.getCategory(userInfo!.token)
+            if (response.data) {
+                setCategories(response.data);
+            }
+            setIsLoading(false);
         }
-
-        setIsLoading(false);
+        catch (e) {
+            console.log(e);
+        }
     };
 
     useEffect(() => { loadData() }, []);
@@ -29,7 +37,7 @@ export default function Categories() {
             <h1>Categories</h1>
 
             <p>
-                <a href="/TodoCategories/Create">Create New</a>
+                <Link href="/todo/categories/create">Create new</Link>
             </p>
             <table className="table">
                 <thead>
@@ -39,6 +47,9 @@ export default function Categories() {
                         </th>
                         <th>
                             CategorySort
+                        </th>
+                        <th>
+                            SyncDt
                         </th>
                         <th></th>
                     </tr>
@@ -53,9 +64,12 @@ export default function Categories() {
                                 {item.categorySort}
                             </td>
                             <td>
-                                <a href="/TodoCategories/Edit/57555e9f-f148-4ce4-489f-08dc554ca528">Edit</a> |
-                                <a href="/TodoCategories/Details/57555e9f-f148-4ce4-489f-08dc554ca528">Details</a> |
-                                <a href="/TodoCategories/Delete/57555e9f-f148-4ce4-489f-08dc554ca528">Delete</a>
+                                {formatDate(item.syncDt)}
+                            </td>
+                            <td>
+                                <Link href={`/TodoCategories/Edit/${item.id}`}>Edit</Link> |
+                                <Link href={`/TodoCategories/Details/${item.id}`}>Details</Link> |
+                                <Link href={`/TodoCategories/Delete/${item.id}`}>Delete</Link>
                             </td>
                         </tr>
                     )}
@@ -66,3 +80,4 @@ export default function Categories() {
         </>
     );
 }
+
