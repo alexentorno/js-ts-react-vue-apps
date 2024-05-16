@@ -1,5 +1,5 @@
 "use client"
-import { ICategory } from "@/domain/ICategory";
+import { IPriority } from "@/domain/IPriority";
 import PostServise from "@/services/CRUD/PostService";
 import { AppContext } from "@/state/AppContext";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useContext } from "react";
 
 
-export default function CreateCategory() {
+export default function CreatePriority() {
 
     const router = useRouter();
     const { userInfo } = useContext(AppContext)!;
@@ -17,22 +17,22 @@ export default function CreateCategory() {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
-        const categoryName = formData.get('categoryName')?.toString() ?? "";
-        const categorySort = formData.get('categorySort')?.toString() ?? "";
+        const priorityName = formData.get('priorityName')?.toString() ?? "";
+        const prioritySort = formData.get('prioritySort')?.toString() ?? "";
 
         try {
-            const response = await PostServise.postCategory(userInfo!.token,
+            const response = await PostServise.postPriority(userInfo!.token,
                 {
-                    categoryName: categoryName,
-                    categorySort: parseInt(categorySort)
-                } as ICategory);
+                    priorityName: priorityName,
+                    prioritySort: parseInt(prioritySort)
+                } as IPriority);
             console.table(response);
             if (response.errors) {
                 console.error(response.errors);
 
             } else {
-                console.log(categoryName);
-                router.push('/todo/categories');
+                console.log(priorityName);
+                router.push('/todo/priorities');
             }
         } catch (error) {
             console.error(error);
@@ -42,21 +42,19 @@ export default function CreateCategory() {
 
     return (
         <>
-            <h1>Create Category</h1>
+            <h1>Create Priority</h1>
             <hr />
             <div className="row">
                 <div className="col-md-4">
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
-                            <label className="control-label" htmlFor="categoryName">CategoryName</label>
-                            <input className="form-control" type="text" id="categoryName" name="categoryName" />
+                            <label className="control-label" htmlFor="priorityName">PriorityName</label>
+                            <input className="form-control" type="text" id="priorityName" name="priorityName" />
                         </div>
                         <br />
                         <div className="form-group">
-                            <label className="control-label" htmlFor="categorySort">
-                                CategorySort
-                            </label>
-                            <input className="form-control" type="number" id="categorySort" name="categorySort" />
+                            <label className="control-label" htmlFor="prioritySort">PrioritySort</label>
+                            <input className="form-control" type="number" id="prioritySort" name="prioritySort" />
                         </div>
                         <br />
                         <div className="form-group">
@@ -66,7 +64,7 @@ export default function CreateCategory() {
                 </div>
             </div>
             <div>
-                <Link href="/todo/categories">Back to List</Link>
+                <Link href="/todo/priorities">Back to List</Link>
             </div>
         </>
     );

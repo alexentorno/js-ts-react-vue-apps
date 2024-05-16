@@ -8,5 +8,5 @@ export interface ITask {
     "isArchived": true,
     "todoCategoryId": string,
     "todoPriorityId": string,
-    "sycDt": string
+    "syncDt": string
 }

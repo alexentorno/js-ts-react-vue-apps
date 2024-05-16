@@ -1,12 +1,11 @@
 "use client"
 
 import { ICategory } from "@/domain/ICategory";
-import { GetService } from "@/services/DomainService";
 import { AppContext } from "@/state/AppContext";
 import { useContext, useEffect, useState } from "react";
 import formatDate from "../FormatDate";
-import AutoLogin from "../autoLogin";
 import Link from "next/link";
+import GetService from "@/services/CRUD/GetService";
 
 export default function Categories() {
     //AutoLogin();
@@ -56,6 +55,7 @@ export default function Categories() {
                 </thead>
                 <tbody>
                     {categories.map((item) =>
+
                         <tr key={item.id}>
                             <td>
                                 {item.categoryName}
@@ -67,9 +67,9 @@ export default function Categories() {
                                 {formatDate(item.syncDt)}
                             </td>
                             <td>
-                                <Link href={`/TodoCategories/Edit/${item.id}`}>Edit</Link> |
-                                <Link href={`/TodoCategories/Details/${item.id}`}>Details</Link> |
-                                <Link href={`/TodoCategories/Delete/${item.id}`}>Delete</Link>
+                                <Link href={`/todo/categories/edit/${item.id}`}>Edit</Link> |
+                                <Link href={`/todo/categories/details/${item.id}`}>Details</Link> |
+                                <Link href={`/todo/categories/delete/${item.id}`}>Delete</Link>
                             </td>
                         </tr>
                     )}

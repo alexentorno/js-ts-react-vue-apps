@@ -1,25 +1,23 @@
-
 "use client"
 
-import { useContext, useEffect, useState } from "react";
-import formatDate from "../FormatDate"
 import { IPriority } from "@/domain/IPriority";
 import { AppContext } from "@/state/AppContext";
-import { GetService } from "@/services/DomainService";
-import AutoLogin from "../autoLogin";
+import { useContext, useEffect, useState } from "react";
+import formatDate from "../FormatDate";
+import Link from "next/link";
+import GetService from "@/services/CRUD/GetService";
 
 export default function Priorities() {
-    //AutoLogin();
     const [isLoading, setIsLoading] = useState(true);
-    const [priorities, setPriorities] = useState<IPriority[]>([]);
-    const { userInfo, setUserInfo } = useContext(AppContext)!;
+    const [priority, setPriority] = useState<IPriority[]>([]);
+    const { userInfo } = useContext(AppContext)!;
 
 
     const loadData = async () => {
         try {
-            const response = await GetService.getPriority(userInfo!.token);
+            const response = await GetService.getPriority(userInfo!.token)
             if (response.data) {
-                setPriorities(response.data);
+                setPriority(response.data);
             }
             setIsLoading(false);
         }
@@ -37,7 +35,7 @@ export default function Priorities() {
             <h1>Priorities</h1>
 
             <p>
-                <a href="/create/">Create New</a>
+                <Link href="/todo/priorities/create">Create new</Link>
             </p>
             <table className="table">
                 <thead>
@@ -55,28 +53,28 @@ export default function Priorities() {
                     </tr>
                 </thead>
                 <tbody>
-                    {priorities.map((item) =>
-                        <tr key={item.id}>
+                    {priority.map((priority) =>
+
+                        <tr key={priority.id}>
                             <td>
-                                {item.priorityName}
+                                {priority.priorityName}
                             </td>
                             <td>
-                                {item.prioritySort}
+                                {priority.prioritySort}
                             </td>
                             <td>
-                                {formatDate(item.syncDt)}
+                                {formatDate(priority.syncDt)}
                             </td>
                             <td>
-                                <a href={`/TodoPriorities/Edit/${item.id}`}>Edit</a> |
-                                <a href={`/TodoPriorities/Details/${item.id}`}>Details</a> |
-                                <a href={`/TodoPriorities/Delete/${item.id}`}>Delete</a>
+                                <Link href={`/todo/priorities/edit/${priority.id}`}>Edit</Link> |
+                                <Link href={`/todo/priorities/details/${priority.id}`}>Details</Link> |
+                                <Link href={`/todo/priorities/delete/${priority.id}`}>Delete</Link>
                             </td>
                         </tr>
                     )}
-
-
                 </tbody>
             </table>
         </>
     );
 }
+
