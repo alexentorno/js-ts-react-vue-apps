@@ -18,14 +18,6 @@ export default function CreateTask() {
     const [taskCategories, taskPriorities] = useCategoriesAndPriorities();
     const { userInfo } = useContext(AppContext)!;
 
-    interface HashMap {
-        [key: string]: string;
-    }
-
-    function getKeyByValue(object: HashMap, value: string): string | undefined {
-        return Object.keys(object).find(key => object[key] === value);
-    }
-
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -33,22 +25,20 @@ export default function CreateTask() {
         const taskName = formData.get('taskName')?.toString() ?? "";
         const taskSort = formData.get('taskSort')?.toString() ?? "";
         const dueDt = formData.get('dueDt')?.toString() ?? "";
-        const isCompleted = formData.get('isCompleted'); //convert to boolean???
-        const isArchived = formData.get('isArchived'); //same
+        const isCompleted = formData.get('isCompleted') === "true";
+        const isArchived = formData.get('isArchived') === "true";
         const todoPriorityId = formData.get('todoPriorityId')?.toString() ?? "";
         const todoCategoryId = formData.get('todoCategoryId')?.toString() ?? "";
 
         try {
-            console.log(isArchived)
-            console.log(todoCategoryId)
-            console.log(todoPriorityId)
+
             const response = await PostServise.postTask(userInfo!.token,
                 {
                     taskName: taskName,
                     taskSort: parseInt(taskSort),
                     dueDt: dueDt,
-                    isCompleted: true,
-                    isArchived: true,
+                    isCompleted: isCompleted,
+                    isArchived: isArchived,
                     todoCategoryId: todoCategoryId,
                     todoPriorityId: todoPriorityId
                 } as ITask);

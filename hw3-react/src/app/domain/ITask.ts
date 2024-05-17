@@ -4,8 +4,8 @@ export interface ITask {
     "taskSort": number,
     "createdDt": string,
     "dueDt": string,
-    "isCompleted": true,
-    "isArchived": true,
+    "isCompleted": boolean,
+    "isArchived": boolean,
     "todoCategoryId": string,
     "todoPriorityId": string,
     "syncDt": string

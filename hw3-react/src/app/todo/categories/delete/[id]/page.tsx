@@ -15,6 +15,7 @@ export default function DeleteCategoryPage() {
     const router = useRouter();
     const { userInfo } = useContext(AppContext)!;
     const [category, setCategory] = useState<ICategory | null>(null); // State to store category data
+    const [error, setError] = useState<string | null>(null);
 
     const loadData = async () => {
         try {
@@ -44,7 +45,7 @@ export default function DeleteCategoryPage() {
             const response = await DeleteService.deleteCategory(userInfo!.token, id.toString());
 
             if (response.errors) {
-                console.error(response.errors);
+                setError("Error: This category cannot be deleted because it has references to other tasks.");
 
             } else {
 
@@ -52,7 +53,7 @@ export default function DeleteCategoryPage() {
             }
         } catch (error: any) {
             console.error(error);
-
+            setError("An error occurred while deleting the category.");
         }
     };
 
@@ -61,36 +62,42 @@ export default function DeleteCategoryPage() {
             <h1>Delete Category</h1>
             {category ? ( // Check if category data is available
                 <>
-                    <h3>Are you sure you want to delete this?</h3>
-                    <div>
-                        <hr />
-                        <dl className="row">
-                            <dt className="col-sm-2">
-                                CategoryName
-                            </dt>
-                            <dd className="col-sm-10" >
-                                {category.categoryName}
-                            </dd>
-                            <dt className="col-sm-2">
-                                CategorySort
-                            </dt>
-                            <dd className="col-sm-10">
-                                {category.categorySort}
-                            </dd>
-                            <dt className="col-sm-2">
-                                SyncDt
-                            </dt>
-                            <dd className="col-sm-10" >
-                                {FormatDate(category.syncDt)}
-                            </dd>
-                        </dl>
+                    {error !== null ? (<><h3>Are you sure you want to delete this?</h3>
+                        <div>
+                            {error && <p className="text-danger">{error}</p>} {/* Render error message if error state is not null */}
+                            <hr />
+                            {/* Rest of the component */}
+                        </div></>) : (<><h3>Are you sure you want to delete this?</h3>
+                            <div>
+                                <hr />
+                                <dl className="row">
+                                    <dt className="col-sm-2">
+                                        CategoryName
+                                    </dt>
+                                    <dd className="col-sm-10" >
+                                        {category.categoryName}
+                                    </dd>
+                                    <dt className="col-sm-2">
+                                        CategorySort
+                                    </dt>
+                                    <dd className="col-sm-10">
+                                        {category.categorySort}
+                                    </dd>
+                                    <dt className="col-sm-2">
+                                        SyncDt
+                                    </dt>
+                                    <dd className="col-sm-10" >
+                                        {FormatDate(category.syncDt)}
+                                    </dd>
+                                </dl>
 
-                        <form onSubmit={handleSubmit}>
-                            <input type="hidden" id="id" name="id" value={category.id} />
-                            <input type="submit" value="Delete" className="btn btn-danger" /> |
-                            <Link href="/todo/categories">Back to List</Link>
-                        </form>
-                    </div>
+                                <form onSubmit={handleSubmit}>
+                                    <input type="hidden" id="id" name="id" value={category.id} />
+                                    <input type="submit" value="Delete" className="btn btn-danger" /> |
+                                    <Link href="/todo/categories">Back to List</Link>
+                                </form>
+                            </div></>)}
+
                 </>
 
             ) : (

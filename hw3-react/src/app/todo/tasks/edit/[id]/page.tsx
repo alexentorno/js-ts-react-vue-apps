@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Link from 'next/link';
 import GetService from '@/services/CRUD/GetService';
 import PutService from '@/services/CRUD/PutService';
+import useCategoriesAndPriorities from '@/todo/useCategAndPrior';
 
 
 
@@ -16,6 +17,8 @@ export default function EditTaskPage() {
     const router = useRouter();
     const { userInfo } = useContext(AppContext)!;
     const [task, setTask] = useState<ITask | null>(null);
+    const [taskCategories, taskPriorities] = useCategoriesAndPriorities();
+
 
     const loadData = async () => {
         try {
@@ -44,8 +47,13 @@ export default function EditTaskPage() {
         const formData = new FormData(e.currentTarget);
         const taskName = formData.get('taskName')?.toString() ?? "";
         const taskSort = formData.get('taskSort')?.toString() ?? "";
-        const id = formData.get('id')?.toString() ?? "";
+        const createdDt = formData.get('createdDt')?.toString() ?? "";
+        const dueDt = formData.get('dueDt')?.toString() ?? "";
         const syncDt = formData.get('syncDt')?.toString() ?? "";
+        const isCompleted = formData.get('isCompleted') === "true";
+        const isArchived = formData.get('isArchived') === "true";
+        const todoPriorityId = formData.get('todoPriorityId')?.toString() ?? "";
+        const todoCategoryId = formData.get('todoCategoryId')?.toString() ?? "";
 
 
         try {
@@ -54,7 +62,13 @@ export default function EditTaskPage() {
                     id: id,
                     taskName: taskName,
                     taskSort: parseInt(taskSort),
-                    syncDt: syncDt
+                    createdDt: createdDt,
+                    dueDt: dueDt,
+                    syncDt: syncDt,
+                    isCompleted: isCompleted,
+                    isArchived: isArchived,
+                    todoPriorityId: todoPriorityId,
+                    todoCategoryId: todoCategoryId
                 } as ITask);
             console.table(response);
             if (response.errors) {
@@ -88,6 +102,46 @@ export default function EditTaskPage() {
                                     <label className="control-label" htmlFor="taskSort">TaskSort</label>
                                     <input className="form-control" type="number" id="taskSort" name="taskSort" defaultValue={task.taskSort} />
                                     <span className="text-danger field-validation-valid"></span>
+                                </div>
+                                <div className="form-group">
+                                    <label className="control-label" htmlFor="createdDt">CreatedDt</label>
+                                    <input className="form-control" type="datetime-local" id="createdDt" name="createdDt" defaultValue={FormatDateToCalendarForm(task.createdDt)} />
+                                    <span className="text-danger field-validation-valid"></span>
+                                </div>
+                                <div className="form-group form-check">
+                                    <label className="form-check-label">
+                                        <input className="form-check-input" type="checkbox" id="isCompleted" name="isCompleted" defaultChecked={task.isCompleted} /> IsCompleted
+                                    </label>
+                                </div>
+                                <div className="form-group form-check">
+                                    <label className="form-check-label">
+                                        <input className="form-check-input" type="checkbox" id="isArchived" name="isArchived" defaultChecked={task.isArchived} /> IsArchived
+                                    </label>
+                                </div>
+                                <div className="form-group">
+                                    <label className="control-label" htmlFor="dueDt">DueDt</label>
+                                    <input className="form-control" type="datetime-local" id="dueDt" name="dueDt" defaultValue={FormatDateToCalendarForm(task.dueDt)} />
+                                    <span className="text-danger field-validation-valid"></span>
+                                </div>
+                                <div className="form-group">
+                                    <label className="control-label" htmlFor="todoCategoryId">TodoCategoryId</label>
+                                    <select className="form-control" id="todoCategoryId" name="todoCategoryId" defaultValue={Object.entries(taskPriorities).map(([id, name]) => (
+                                        id === task.todoCategoryId.toString() ? name : ""
+                                    ))}>
+                                        {Object.entries(taskCategories).map(([id, name]) =>
+                                            <option key={id} value={id}>{name}</option>
+                                        )}
+                                    </select>
+                                </div>
+                                <div className="form-group">
+                                    <label className="control-label" htmlFor="todoPriorityId">TodoPriorityId</label>
+                                    <select className="form-control" id="todoPriorityId" name="todoPriorityId" defaultValue={Object.entries(taskPriorities).map(([id, name]) => (
+                                        id === task.todoPriorityId.toString() ? name : ""
+                                    ))}>
+                                        {Object.entries(taskPriorities).map(([id, name]) =>
+                                            <option key={id} value={id}>{name}</option>
+                                        )}
+                                    </select>
                                 </div>
                                 <div className="form-group">
                                     <label className="control-label" htmlFor="syncDt">SyncDt</label>

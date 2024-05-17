@@ -8,13 +8,13 @@ import Link from "next/link";
 import GetService from "@/services/CRUD/GetService";
 import { ICategory } from "@/domain/ICategory";
 import { IPriority } from "@/domain/IPriority";
+import useCategoriesAndPriorities from "../useCategAndPrior";
 
 export default function Tasks() {
     const [isLoading, setIsLoading] = useState(true);
     const [tasks, setTasks] = useState<ITask[]>([]);
-    /*     const [category, setCategory] = useState<ICategory>();
-        const [priority, setPriority] = useState<IPriority>(); */
     const { userInfo } = useContext(AppContext)!;
+    const [taskCategories, taskPriorities] = useCategoriesAndPriorities();
 
 
     const loadData = async () => {
@@ -29,28 +29,6 @@ export default function Tasks() {
             console.log(e);
         }
     };
-
-    /* const getTaskCategory = async (taskCategoryId : string) => {
-        try {
-            const response = await GetService.getCategoryById(userInfo!.token, taskCategoryId);
-            if (response) {
-                setCategory(response);
-            }
-        } catch (error: any) {
-            console.log(error);
-        }
-    };
-
-    const getTaskPriority = async (taskCategoryId : string) => {
-        try {
-            const response = await GetService.getById(userInfo!.token, taskCategoryId);
-            if (response) {
-                setCategory(response);
-            }
-        } catch (error: any) {
-            console.log(error);
-        }
-    }; */
 
     useEffect(() => { loadData() }, []);
 
@@ -120,10 +98,14 @@ export default function Tasks() {
                                 <input className="check-box" type="checkbox" checked={item.isArchived} disabled />
                             </td>
                             <td>
-                                {item.todoCategoryId}
+                                {Object.entries(taskCategories).map(([id, name]) => (
+                                    id === item.todoCategoryId.toString() ? name : null
+                                ))}
                             </td>
                             <td>
-                                {item.todoPriorityId}
+                                {Object.entries(taskPriorities).map(([id, name]) => (
+                                    id === item.todoPriorityId.toString() ? name : null
+                                ))}
                             </td>
                             <td>
                                 {formatDate(item.syncDt)}

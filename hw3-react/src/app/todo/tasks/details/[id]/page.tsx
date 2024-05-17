@@ -8,6 +8,8 @@ import FormatDate from '@/todo/FormatDate';
 import Link from 'next/link';
 import DeleteService from '@/services/CRUD/DeleteService';
 import GetService from '@/services/CRUD/GetService';
+import formatDate from '@/todo/FormatDate';
+import useCategoriesAndPriorities from '@/todo/useCategAndPrior';
 
 
 export default function TaskDetailsPage() {
@@ -15,6 +17,8 @@ export default function TaskDetailsPage() {
     const router = useRouter();
     const { userInfo } = useContext(AppContext)!;
     const [task, setTask] = useState<ITask | null>(null);
+    const [taskCategories, taskPriorities] = useCategoriesAndPriorities();
+
 
     const loadData = async () => {
         try {
@@ -76,6 +80,46 @@ export default function TaskDetailsPage() {
                             </dt>
                             <dd className="col-sm-10">
                                 {task.taskSort}
+                            </dd>
+                            <dt className="col-sm-2">
+                                CreatedDt
+                            </dt>
+                            <dd className="col-sm-10" >
+                                {formatDate(task.createdDt)}
+                            </dd>
+                            <dt className="col-sm-2">
+                                DueDt
+                            </dt>
+                            <dd className="col-sm-10" >
+                                {formatDate(task.dueDt)}
+                            </dd>
+                            <dt className="col-sm-2">
+                                IsCompleted
+                            </dt>
+                            <dd className="col-sm-10" >
+                                <input className="check-box" type="checkbox" checked={task.isCompleted} disabled />
+                            </dd>
+                            <dt className="col-sm-2">
+                                IsArchived
+                            </dt>
+                            <dd className="col-sm-10" >
+                                <input className="check-box" type="checkbox" checked={task.isArchived} disabled />
+                            </dd>
+                            <dt className="col-sm-2">
+                                TodoCategory
+                            </dt>
+                            <dd className="col-sm-10" >
+                                {Object.entries(taskCategories).map(([id, name]) => (
+                                    id === task.todoCategoryId.toString() ? name : null
+                                ))}
+                            </dd>
+                            <dt className="col-sm-2">
+                                TodoPriority
+                            </dt>
+                            <dd className="col-sm-10" >
+                                {Object.entries(taskPriorities).map(([id, name]) => (
+                                    id === task.todoPriorityId.toString() ? name : null
+                                ))}
                             </dd>
                             <dt className="col-sm-2">
                                 SyncDt
