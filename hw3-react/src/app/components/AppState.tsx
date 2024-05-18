@@ -1,7 +1,7 @@
 "use client"
 
 import { AppContext, IUserInfo } from "@/state/AppContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AppState({
     children,
@@ -9,7 +9,14 @@ export default function AppState({
     children: React.ReactNode;
 }>) {
 
-    const [userInfo, setUserInfo] = useState<IUserInfo | null>(null);
+    const storageUser = JSON.parse(localStorage.getItem("userInfo") || '[]');
+    const [userInfo, setUserInfo] = useState<IUserInfo | null>(storageUser);
+
+    //const [userInfo, setUserInfo] = useState<IUserInfo | null>(localStorage.getItem('token'));
+
+    useEffect(() => {
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    }, [userInfo])
 
     return (
         <AppContext.Provider value={{ userInfo, setUserInfo }}>

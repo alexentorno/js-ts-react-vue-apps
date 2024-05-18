@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useContext } from "react";
 
 export default function Identity() {
-    const { userInfo, setUserInfo } = useContext(AppContext)!;
+    const { userInfo } = useContext(AppContext)!;
 
     return userInfo ? <LoggedIn /> : <LoggedOut />;
 

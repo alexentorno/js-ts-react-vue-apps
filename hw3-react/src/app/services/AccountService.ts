@@ -33,5 +33,28 @@ export default class AccountService {
             };
         }
     }
+    static async register(email: string, pwd: string, firstName: string, lastName: string): Promise<IResultObject<IUserInfo>> {
+        const registerData = {
+            email: email,
+            password: pwd,
+            firstName: firstName,
+            lastName: lastName
+        };
+        try {
+            const response = await AccountService.httpClient.post<IUserInfo>("register", registerData);
+            if (response.status < 300) {
+                return {
+                    data: response.data
+                };
+            }
+            return {
+                errors: [response.status.toString() + " " + response.statusText]
+            };
+        } catch (error: any) {
+            return {
+                errors: [JSON.stringify(error)]
+            };
+        }
+    }
 
 }

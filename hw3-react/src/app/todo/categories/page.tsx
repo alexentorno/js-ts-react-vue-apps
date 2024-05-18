@@ -8,10 +8,9 @@ import Link from "next/link";
 import GetService from "@/services/CRUD/GetService";
 
 export default function Categories() {
-    //AutoLogin();
     const [isLoading, setIsLoading] = useState(true);
     const [categories, setCategories] = useState<ICategory[]>([]);
-    const { userInfo, setUserInfo } = useContext(AppContext)!;
+    const { userInfo } = useContext(AppContext)!;
 
 
     const loadData = async () => {
