@@ -1,79 +1,80 @@
 <template>
-    <div>
-      <h1>Categories</h1>
-      <!-- <p>
-        <router-link to="/categories/create">Create new</router-link>
-      </p>
-      <table class="table">
-        <thead>
+  <div class="mt-8">
+    <h1 class="text-xl font-semibold mb-4 ml-5">List of Your Categories</h1>
+
+    <div class="mb-4">
+      <router-link :to="{ name: 'create-category' }" class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 ml-5 rounded">
+        Add Category
+      </router-link>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white shadow-md rounded-lg">
+        <thead class="bg-gray-800 text-white">
           <tr>
-            <th>CategoryName</th>
-            <th>CategorySort</th>
-            <th>SyncDt</th>
-            <th></th>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Category Name</th>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Category Sort</th>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Sync Date</th>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <tr v-for="item in categories" :key="item.id">
-            <td>{{ item.categoryName }}</td>
-            <td>{{ item.categorySort }}</td>
-            <td>{{ formatDate(item.syncDt) }}</td>
-            <td>
-              <router-link :to="`/categories/edit/${item.id}`">Edit</router-link> |
-              <router-link :to="`/categories/details/${item.id}`">Details</router-link> |
-              <router-link :to="`/categories/delete/${item.id}`">Delete</router-link>
+        <tbody class="text-gray-700">
+          <tr v-for="(item, index) in categories" :key="item.id"
+              :class="{'bg-gray-100': index % 2 === 0, 'bg-white': index % 2 !== 0}">
+            <td class="text-left py-3 px-4">{{ item.categoryName }}</td>
+            <td class="text-left py-3 px-4">{{ item.categorySort }}</td>
+            <td class="text-left py-3 px-4">{{ formatDate(item.syncDt) }}</td>
+            <td class="text-left py-3 px-4">
+              <router-link :to="{ name: 'edit-category', params: { id: item.id }}" class="text-blue-500 hover:text-blue-600">Edit</router-link> |
+              <router-link :to="{ name: 'category-details', params: { id: item.id }}" class="text-blue-500 hover:text-blue-600">Details</router-link> |
+              <router-link :to="{ name: 'delete-category', params: { id: item.id }}" class="text-red-500 hover:text-red-600">Delete</router-link>
             </td>
           </tr>
         </tbody>
       </table>
-      <div v-if="isLoading">
-        <h1>Categories - LOADING</h1>
-      </div> -->
     </div>
-  </template>
+  </div>
+</template>
   
 
-  <script setup>
+  <script setup lang="ts">
 
 
 
-  /* import { ref, onMounted, computed } from 'vue';
+  import { ref, onMounted } from 'vue';
   import GetService from '@/services/CRUD/GetService';
   import formatDate from '@/utils/FormatDate';
-  import type { ICategory } from '@/domain/ICategory'; */
+  import type { ICategory } from '@/domain/ICategory';
+  import { state } from '@/state/AppState';
   
-  /*export default {
-     setup() {
-      //const { userInfo } = useUserContext(); // Access user context
-      const categories = ref<ICategory[]>([]);
+      let categories = ref<ICategory[]>([]);
       const isLoading = ref(true);
-      const token = computed(() => userInfo?.token); // Computed property for reactive token access
+      const userInfo = state.userInfo;
   
       const loadData = async () => {
-        if (!token.value) { // Ensure the token is available
+        if (!userInfo.token) { 
           console.error("User token is not available.");
           return;
         }
   
         try {
-          const response = await GetService.getCategory(token.value); // Use the reactive token here
+          const response = await GetService.getCategory(userInfo.token); 
           if (response.data) {
-            categories.value = response.data.map(category => ({
-              ...category,
-              syncDt: formatDate(category.syncDt) // Format date on data reception
-            }));
+            console.log(userInfo);
+            categories.value = response.data;
+          } else {
+            console.error("Failed to retrieve data", response);
+            
           }
-          isLoading.value = false;
         } catch (e) {
           console.error("Failed to load categories:", e);
+        } finally {
+          isLoading.value = false;
+          console.log(categories.value);
         }
       };
   
       onMounted(() => {
         loadData();
       });
-  
-      return { categories, isLoading, formatDate };
-    },
-  }; */
+    
   </script>

@@ -1,23 +1,22 @@
 import type { IUserInfo } from "@/state/AppState.ts";
 import axios from "axios";
 import type { IResultObject } from "./IResultObject.ts";
-//mport httpClient from "@/services/HttpClientInstance.ts";
+import httpClient from "@/services/HttpClientInstance.ts";
 
+// const httpClient = axios.create({
+//     baseURL: 'https://taltech.akaver.com/api/v1/account/',
+// });
 
-export default class AccountService {
-    private constructor() {}
+export default {
 
-    private static httpClient = axios.create({
-        baseURL: 'https://taltech.akaver.com/api/v1/account/',
-    });
-
-    static async login(email: string, pwd: string): Promise<IResultObject<IUserInfo>> {
+    
+    async login(email: string, pwd: string): Promise<IResultObject<IUserInfo>> {
         const loginData = {
             email: email,
             password: pwd
         }
         try {
-            const response = await AccountService.httpClient.post<IUserInfo>("login", loginData);
+            const response = await httpClient.post<IUserInfo>("login", loginData);
             if (response.status < 300) {
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
                 return {
@@ -32,8 +31,8 @@ export default class AccountService {
                 errors: [JSON.stringify(error)]
             };
         }
-    }
-    static async register(email: string, pwd: string, firstName: string, lastName: string): Promise<IResultObject<IUserInfo>> {
+    },
+   async register(email: string, pwd: string, firstName: string, lastName: string): Promise<IResultObject<IUserInfo>> {
         const registerData = {
             email: email,
             password: pwd,
@@ -41,7 +40,7 @@ export default class AccountService {
             lastName: lastName
         };
         try {
-            const response = await AccountService.httpClient.post<IUserInfo>("register", registerData);
+            const response = await httpClient.post<IUserInfo>("register", registerData);
             if (response.status < 300) {
                 return {
                     data: response.data

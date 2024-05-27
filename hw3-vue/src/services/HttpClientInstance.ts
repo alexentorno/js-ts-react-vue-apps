@@ -1,20 +1,20 @@
 import axios from "axios";
 
-const baseURL = 'https://taltech.akaver.com/api/v1/';
+const baseURL = 'https://taltech.akaver.com/api/v1/account/';
 
 const userInfo = JSON.parse(localStorage.getItem('userInfo') ?? "[]");
-const token = JSON.parse(localStorage.getItem('token') ?? "");
-console.log(userInfo);
-console.log(token);
+//const token = JSON.parse(localStorage.getItem('token') ?? "");
+//console.log(userInfo);
+//console.log(token);
 const httpClient = axios.create({
     baseURL: baseURL,
     headers: {
-        Authorization: 'Bearer ' + userInfo.token
+        Authorization: 'Bearer ' + userInfo?.token
     }
 });
 
 httpClient.interceptors.response.use((response) => {
-    
+    console.log(userInfo)
     return response;
 
 }, async (error) => {
@@ -27,7 +27,7 @@ httpClient.interceptors.response.use((response) => {
         };
 
         const response = await httpClient.post(
-            "account/RefreshToken",
+            "RefreshToken",
             payload
         );
 
