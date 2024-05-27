@@ -1,6 +1,6 @@
 <template>
     
-  <div class="min-h-screen flex items-start py-20 justify-center w-full bg-orange-50">
+  <div class="flex items-start py-20 justify-center w-full bg-orange-50">
 	  <div class="bg-white shadow-md rounded-lg px-8 py-6 max-w-md w-3/4">
 		  <h1 class="text-2xl font-bold text-center mb-4 text-purple-700">Welcome Back!</h1>
 		
@@ -35,44 +35,11 @@
 		
 	  </div>
   </div>
-
-
-<!-- ----------------------------------------------- -->
-
-<!-- <div class="min-h-screen flex items-center justify-center w-full bg-orange-50">
-	<div class="bg-white bg-white shadow-lg rounded-lg px-8 py-6 max-w-md w-3/4">
-		<div class="text-2xl font-bold text-center mb-4 dark:text-purple-700	">Are you new here? <div>Create an account</div></div>
-            
-			<div class="mb-4">
-				<label for="firstName" class="block text-sm font-medium  text-slate-500 mb-2">First Name</label>
-				<input type="firstName" v-model="firstName" id="firstName"  autocomplete="" placeholder="Name" 
-                class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-			</div>
-            <div class="mb-4">
-				<label for="lastName" class="block text-sm font-medium text-slate-500 mb-2">Last Name</label>
-				<input type="lastName" v-model="lastName" id="lastName"  autocomplete="" placeholder="Surname" 
-                class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-			</div>
-            <div class="mb-4">
-				<label for="email" class="block text-sm font-medium text-slate-500 mb-2">Email Address</label>
-				<input type="email" v-model="email" id="email"  autocomplete="" placeholder="name@example.com" 
-                class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-			</div>
-            <div class="mb-4">
-				<label for="password" class="block text-sm font-medium text-slate-500 mb-2">Password</label>
-				<input type="password" v-model="pwd" id="password"  autocomplete="" placeholder="Password"  
-                class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-			</div>
-			<div class="mb-4">
-				<label for="repeatPwd" class="block text-sm font-medium text-slate-500 mb-2">Repeat Password</label>
-				<input type="password" v-model="repeatPwd" id="repeatPwd"  autocomplete="" placeholder="Password"  
-                class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-			</div> -->
   </template>
   
   <script setup lang="ts">
   import { ref } from 'vue';
-  import { state, setUserInfo } from '@/state/AppState.ts'; // Adapted for Vue
+  import { setUserInfo } from '@/state/AppState.ts'; // Adapted for Vue
   import { useRouter } from 'vue-router';
   import AccountService from '@/services/AccountService';
   
