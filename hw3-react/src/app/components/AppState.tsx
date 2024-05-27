@@ -12,7 +12,6 @@ export default function AppState({
     const storageUser = JSON.parse(localStorage.getItem("userInfo") || '[]');
     const [userInfo, setUserInfo] = useState<IUserInfo | null>(storageUser);
 
-    //const [userInfo, setUserInfo] = useState<IUserInfo | null>(localStorage.getItem('token'));
 
     useEffect(() => {
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
