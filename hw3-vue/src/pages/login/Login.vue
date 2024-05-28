@@ -64,7 +64,7 @@
     const response = await AccountService.login(email.value, pwd.value);
     if (response.data) {
       setUserInfo(response.data);
-      console.log(response.data);
+      // console.log(response.data);
       router.push('/');
     }
   

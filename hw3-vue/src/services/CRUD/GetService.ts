@@ -1,4 +1,5 @@
 import axios from "axios";
+import httpClient from "@/services/HttpClientInstance.ts";
 import type { IResultObject } from "@/services/IResultObject.ts";
 import type { IPriority } from "@/domain/IPriority.ts";
 import type { ICategory } from "@/domain/ICategory.ts";
@@ -8,15 +9,15 @@ export default class GetService {
     private constructor() { }
 
     static async getTask(token: string) {
-        return this.Get<ITask>(token, 'https://taltech.akaver.com/api/v1/TodoTasks/');
+        return this.Get<ITask>(token, 'TodoTasks/');
     }
 
     static async getCategory(token: string) {
-        return this.Get<ICategory>(token, 'https://taltech.akaver.com/api/v1/TodoCategories/');
+        return this.Get<ICategory>(token, 'TodoCategories');
     }
 
     static async getPriority(token: string) {
-        return this.Get<IPriority>(token, 'https://taltech.akaver.com/api/v1/TodoPriorities/');
+        return this.Get<IPriority>(token, 'TodoPriorities/');
     }
 
     static async getCategoryById(token: string, id: string): Promise<ICategory | undefined> {
@@ -64,17 +65,17 @@ export default class GetService {
         return undefined;
     }
 
-    static async Get<T extends object>(token: string, baseUrl: string): Promise<IResultObject<T[]>> {
+    static async Get<T extends object>(token: string, keyword: string): Promise<IResultObject<T[]>> {
         try {
 
-            const httpClient = axios.create({
-                baseURL: baseUrl,
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                },
-            });
+            // const httpClient = axios.create({
+            //     baseURL: baseUrl,
+            //     headers: {
+            //         Authorization: 'Bearer ' + token,
+            //     },
+            // });
 
-            const response = await httpClient.get<T[]>('');
+            const response = await httpClient.get<T[]>(keyword);
 
             if (response.status < 300) {
                 return {

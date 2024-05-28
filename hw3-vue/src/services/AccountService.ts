@@ -1,5 +1,5 @@
 import type { IUserInfo } from "@/state/AppState.ts";
-import axios from "axios";
+//import axios from "axios";
 import type { IResultObject } from "./IResultObject.ts";
 import httpClient from "@/services/HttpClientInstance.ts";
 
@@ -16,7 +16,7 @@ export default {
             password: pwd
         }
         try {
-            const response = await httpClient.post<IUserInfo>("login", loginData);
+            const response = await httpClient.post<IUserInfo>("account/login", loginData);
             if (response.status < 300) {
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
                 return {
@@ -40,7 +40,7 @@ export default {
             lastName: lastName
         };
         try {
-            const response = await httpClient.post<IUserInfo>("register", registerData);
+            const response = await httpClient.post<IUserInfo>("account/register", registerData);
             if (response.status < 300) {
                 return {
                     data: response.data

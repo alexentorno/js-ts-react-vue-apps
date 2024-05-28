@@ -1,44 +1,47 @@
 import axios from "axios";
+//import { state } from '@/state/AppState';
+import { useRouter } from "vue-router"; 
 
-const baseURL = 'https://taltech.akaver.com/api/v1/account/';
+const router = useRouter();
+
+const baseURL = 'https://taltech.akaver.com/api/v1/';
 
 const userInfo = JSON.parse(localStorage.getItem('userInfo') ?? "[]");
-//const token = JSON.parse(localStorage.getItem('token') ?? "");
-//console.log(userInfo);
-//console.log(token);
+
+//const userInfo = state.userInfo;
+console.log(userInfo)
 const httpClient = axios.create({
     baseURL: baseURL,
     headers: {
-        Authorization: 'Bearer ' + userInfo?.token
+        Authorization: `Bearer ${userInfo.token}` 
     }
 });
 
 httpClient.interceptors.response.use((response) => {
-    console.log(userInfo)
+    //console.log(userInfo)
     return response;
 
 }, async (error) => {
 
     console.log('interceptor is managing response!');
     if (error.response.status === 401) {
-        const payload = {
-            jwt: userInfo.token,
-            refreshToken: userInfo.refreshToken
-        };
-
+        console.log("Token expired, refreshing...");
         const response = await httpClient.post(
-            "RefreshToken",
-            payload
+            "account/RefreshToken",
+            {
+                jwt: userInfo.token,
+                refreshToken: userInfo.refreshToken
+            }
         );
 
-        localStorage.setItem(
-            "userInfo",
-            JSON.stringify(response.data)
-        );
+        localStorage.setItem("userInfo", JSON.stringify(response.data));
 
         error.confog.headers[
             "Authorization"
         ] = `Bearer ${response.data.token}`;
+
+        // refresh the page
+        window.location.reload();
 
         return axios(error.config);
     } else {

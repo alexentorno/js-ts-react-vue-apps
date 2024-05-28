@@ -1,6 +1,11 @@
 <template>
   <div class="mt-8">
     <h1 class="text-xl font-semibold mb-4 ml-5">List of Your Priorities</h1>
+    <div class="mb-4">
+      <router-link :to="{ name: 'create-priority' }" class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 ml-5 rounded">
+        Add Priority
+      </router-link>
+    </div>
     <div class="overflow-x-auto">
       <table class="min-w-full bg-white shadow-md rounded-lg">
         <thead class="bg-gray-800 text-white">
@@ -18,9 +23,9 @@
             <td class="text-left py-3 px-4">{{ item.prioritySort }}</td>
             <td class="text-left py-3 px-4">{{ formatDate(item.syncDt) }}</td>
             <td class="text-left py-3 px-4">
-              <router-link :to="`/priorities/edit/${item.id}`" class="text-blue-500 hover:text-blue-600">Edit</router-link> |
-              <router-link :to="`/priorities/details/${item.id}`" class="text-blue-500 hover:text-blue-600">Details</router-link> |
-              <router-link :to="`/priorities/delete/${item.id}`" class="text-red-500 hover:text-red-600">Delete</router-link>
+              <router-link :to="{ name: 'edit-priority', params: { id: item.id }}" class="text-blue-500 hover:text-blue-600">Edit</router-link> |
+              <router-link :to="{ name: 'priority-details', params: { id: item.id }}" class="text-blue-500 hover:text-blue-600">Details</router-link> |
+              <router-link :to="{ name: 'delete-priority', params: { id: item.id }}" class="text-red-500 hover:text-red-600">Delete</router-link>
             </td>
           </tr>
         </tbody>

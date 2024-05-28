@@ -1,4 +1,5 @@
 import axios from "axios";
+import httpClient from "@/services/HttpClientInstance.ts";
 import type { IResultObject } from "@/services/IResultObject.ts";
 import type { IPriority } from "@/domain/IPriority.ts";
 import type { ICategory } from "@/domain/ICategory.ts";
@@ -8,17 +9,17 @@ export default class PostServise {
 
     private constructor() { }
 
-    static async Post<T extends object>(token: string, baseUrl: string, data: T): Promise<IResultObject<T[]>> {
+    static async Post<T extends object>(token: string, keyword: string, data: T): Promise<IResultObject<T[]>> {
         try {
 
-            const httpClient = axios.create({
-                baseURL: baseUrl,
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                },
-            });
+            // const httpClient = axios.create({
+            //     baseURL: baseUrl,
+            //     headers: {
+            //         Authorization: 'Bearer ' + token,
+            //     },
+            // });
 
-            const response = await httpClient.post<T[]>('', data);
+            const response = await httpClient.post<T[]>(keyword, data);
 
             if (response.status < 300) {
                 return {
@@ -38,15 +39,15 @@ export default class PostServise {
     }
 
     static async postTask(token: string, data: ITask) {
-        return this.Post<ITask>(token, 'https://taltech.akaver.com/api/v1/TodoTasks/', data);
+        return this.Post<ITask>(token, 'TodoTasks/', data);
     }
 
     static async postCategory(token: string, data: ICategory) {
-        return this.Post<ICategory>(token, 'https://taltech.akaver.com/api/v1/TodoCategories/', data);
+        return this.Post<ICategory>(token, 'TodoCategories/', data);
     }
 
     static async postPriority(token: string, data: IPriority) {
-        return this.Post<IPriority>(token, 'https://taltech.akaver.com/api/v1/TodoPriorities/', data);
+        return this.Post<IPriority>(token, 'TodoPriorities/', data);
     }
 
 }

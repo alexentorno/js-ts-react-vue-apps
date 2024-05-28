@@ -44,13 +44,14 @@
   import GetService from '@/services/CRUD/GetService';
   import formatDate from '@/utils/FormatDate';
   import type { ICategory } from '@/domain/ICategory';
-  import { state } from '@/state/AppState';
+  //import { state } from '@/state/AppState';
   
       let categories = ref<ICategory[]>([]);
       const isLoading = ref(true);
-      const userInfo = state.userInfo;
+      const userInfo = JSON.parse(localStorage.getItem('userInfo') ?? "[]");
   
       const loadData = async () => {
+        //console.log(userInfo);
         if (!userInfo.token) { 
           console.error("User token is not available.");
           return;
@@ -59,7 +60,7 @@
         try {
           const response = await GetService.getCategory(userInfo.token); 
           if (response.data) {
-            console.log(userInfo);
+             //console.log(userInfo);
             categories.value = response.data;
           } else {
             console.error("Failed to retrieve data", response);
@@ -69,7 +70,7 @@
           console.error("Failed to load categories:", e);
         } finally {
           isLoading.value = false;
-          console.log(categories.value);
+          // console.log(categories.value);
         }
       };
   

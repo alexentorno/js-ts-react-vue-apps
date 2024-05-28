@@ -1,20 +1,23 @@
-import axios from "axios";
+// import axios from "axios";
+import httpClient from "@/services/HttpClientInstance.ts";
+
+// const keywords = ['TodoCategories', 'TodoPriorities', 'TodoTasks'];
 
 export default class DeleteService {
 
     private constructor() { }
 
-    static async Delete(token: string, baseUrlWithId: string) {
+    static async Delete(token: string, keyword: string) {
         try {
 
-            const httpClient = axios.create({
+            /* const httpClient = axios.create({
                 baseURL: baseUrlWithId,
                 headers: {
                     Authorization: 'Bearer ' + token,
                 },
-            });
+            }); */
 
-            const response = await httpClient.delete('');
+            const response = await httpClient.delete(keyword);
 
             if (response.status < 300) {
                 return {
@@ -34,14 +37,14 @@ export default class DeleteService {
     }
 
     static async deleteCategory(token: string, id: string) {
-        return this.Delete(token, 'https://taltech.akaver.com/api/v1/TodoCategories/' + id);
+        return this.Delete(token, 'TodoCategories/' + id);
     }
 
     static async deletePriority(token: string, id: string) {
-        return this.Delete(token, 'https://taltech.akaver.com/api/v1/TodoPriorities/' + id);
+        return this.Delete(token, 'TodoPriorities/' + id);
     }
 
     static async deleteTask(token: string, id: string) {
-        return this.Delete(token, 'https://taltech.akaver.com/api/v1/TodoTasks/' + id);
+        return this.Delete(token, 'TodoTasks/' + id);
     }
 }
