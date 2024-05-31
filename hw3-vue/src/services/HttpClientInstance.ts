@@ -8,8 +8,6 @@ const baseURL = 'https://taltech.akaver.com/api/v1/';
 
 const userInfo = JSON.parse(localStorage.getItem('userInfo') ?? "[]");
 
-//const userInfo = state.userInfo;
-console.log(userInfo)
 const httpClient = axios.create({
     baseURL: baseURL,
     headers: {

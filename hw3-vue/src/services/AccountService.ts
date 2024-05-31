@@ -1,11 +1,6 @@
 import type { IUserInfo } from "@/state/AppState.ts";
-//import axios from "axios";
 import type { IResultObject } from "./IResultObject.ts";
 import httpClient from "@/services/HttpClientInstance.ts";
-
-// const httpClient = axios.create({
-//     baseURL: 'https://taltech.akaver.com/api/v1/account/',
-// });
 
 export default {
 

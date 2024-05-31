@@ -3,7 +3,6 @@
     <h1 class="text-2xl font-bold mb-5">Category Details</h1>
     <div v-if="category" class="bg-gray-50 p-4 rounded-md shadow">
       <hr class="my-4" />
-      <!-- Adjusting grid columns: giving labels less space -->
       <div class="grid grid-cols-3 gap-2">
         <div class="font-semibold col-span-1">Category Name:</div>
         <div class="col-span-2">{{ category.categoryName }}</div>
