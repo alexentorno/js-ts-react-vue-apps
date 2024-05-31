@@ -1,18 +1,25 @@
 import axios from "axios";
-//import { state } from '@/state/AppState';
-import { useRouter } from "vue-router"; 
-
-const router = useRouter();
 
 const baseURL = 'https://taltech.akaver.com/api/v1/';
 
-const userInfo = JSON.parse(localStorage.getItem('userInfo') ?? "[]");
+let userInfo = JSON.parse(localStorage.getItem('userInfo') ?? "[]");
 
 const httpClient = axios.create({
     baseURL: baseURL,
-    headers: {
-        Authorization: `Bearer ${userInfo.token}` 
+    
+});
+
+httpClient.interceptors.request.use((config) => {
+    console.log("interceptor is managing request!");
+    userInfo = JSON.parse(localStorage.getItem('userInfo') ?? "[]");
+    if(userInfo){
+        config.headers[
+            "Authorization"
+        ] = `Bearer ${userInfo.token}`;
     }
+    return config;
+}, (error) => {
+    return Promise.reject(error);
 });
 
 httpClient.interceptors.response.use((response) => {
