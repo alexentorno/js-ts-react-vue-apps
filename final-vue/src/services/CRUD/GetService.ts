@@ -1,32 +1,47 @@
-import axios from "axios";
 import httpClient from "@/services/HttpClientInstance.ts";
 import type { IResultObject } from "@/services/IResultObject.ts";
-import type { IPriority } from "@/domain/IPriority.ts";
-import type { ICategory } from "@/domain/ICategory.ts";
-import type { ITask } from "@/domain/ITask.ts";
+
+import type { IContest } from "@/domain/IContest.ts";
+import type { IContestTeams } from "@/domain/IContestTeams.ts";
+import type { IParticipate } from "@/domain/IParticipate.ts";
 
 export default class GetService {
     private constructor() { }
 
-    static async getTask(token: string) {
-        return this.Get<ITask>(token, 'TodoTasks/');
+    static async getContests() {
+        return this.Get<IContest>('contest/contests');
     }
 
-    static async getCategory(token: string) {
-        return this.Get<ICategory>(token, 'TodoCategories');
+    static async getContestTeams(id: string) {
+        return this.Get<IContestTeams>('contest/contestinfo/' + id);
+    } 
+
+    static async getTeamParticipation (id: string) {
+        return this.Get<IParticipate>('contest/participate/' + id);
     }
 
-    static async getPriority(token: string) {
-        return this.Get<IPriority>(token, 'TodoPriorities/');
-    }
-
-    static async getCategoryById(token: string, id: string): Promise<ICategory | undefined> {
+    static async getContestById(contestId: string) : Promise<IContest | undefined> {
         try {
-            const response = await GetService.getCategory(token);
+            const response = await GetService.getContests();
 
             if (response.data) {
-                const category = response.data.find(category => category.id === id);
-                return category;
+                const contest = response.data.find(contest => contest.id === contestId);
+                return contest;
+            }
+        } catch (error) {
+            console.error(error);
+        }
+
+        return undefined;
+    }
+    
+    static async getContestTeamsById(contestId: string) {
+        try {
+            const response = await this.Get<IContestTeams>('contest/contestinfo/' + contestId);
+
+            if (response.data) {
+                const contest = response.data;
+                return contest;
             }
         } catch (error) {
             console.error(error);
@@ -35,45 +50,8 @@ export default class GetService {
         return undefined;
     }
 
-    static async getPriorityById(token: string, id: string): Promise<IPriority | undefined> {
+    static async Get<T extends object>(keyword: string): Promise<IResultObject<T[]>> {
         try {
-            const response = await GetService.getPriority(token);
-
-            if (response.data) {
-                const priority = response.data.find(priority => priority.id === id);
-                return priority;
-            }
-        } catch (error) {
-            console.error(error);
-        }
-
-        return undefined;
-    }
-
-    static async getTaskById(token: string, id: string): Promise<ITask | undefined> {
-        try {
-            const response = await GetService.getTask(token);
-
-            if (response.data) {
-                const task = response.data.find(task => task.id === id);
-                return task;
-            }
-        } catch (error) {
-            console.error(error);
-        }
-
-        return undefined;
-    }
-
-    static async Get<T extends object>(token: string, keyword: string): Promise<IResultObject<T[]>> {
-        try {
-
-            // const httpClient = axios.create({
-            //     baseURL: baseUrl,
-            //     headers: {
-            //         Authorization: 'Bearer ' + token,
-            //     },
-            // });
 
             const response = await httpClient.get<T[]>(keyword);
 

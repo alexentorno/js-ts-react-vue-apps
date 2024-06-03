@@ -70,7 +70,7 @@
   
   const loadData = async () => {
     try {
-      const responseData = await GetService.getTask(state.userInfo.token);
+      const responseData = await GetService.getContests(state.userInfo.token);
       const categoriesData = await GetService.getCategory(state.userInfo.token);
       const prioritiesData = await GetService.getPriority(state.userInfo.token);
       if (responseData.data && categoriesData.data && prioritiesData.data) {

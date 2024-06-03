@@ -1,23 +1,17 @@
 import axios from "axios";
 import httpClient from "@/services/HttpClientInstance.ts";
 import type { IResultObject } from "@/services/IResultObject.ts";
-import type { IPriority } from "@/domain/IPriority.ts";
-import type { ICategory } from "@/domain/ICategory.ts";
-import type { ITask } from "@/domain/ITask.ts";
+import type { IRegisterTeam } from "@/domain/IRegisterTeam.ts";
+
 
 export default class PostServise {
 
     private constructor() { }
 
-    static async Post<T extends object>(token: string, keyword: string, data: T): Promise<IResultObject<T[]>> {
+    static async Post<T extends object>(keyword: string, data: T): Promise<IResultObject<T[]>> {
         try {
 
-            // const httpClient = axios.create({
-            //     baseURL: baseUrl,
-            //     headers: {
-            //         Authorization: 'Bearer ' + token,
-            //     },
-            // });
+        
 
             const response = await httpClient.post<T[]>(keyword, data);
 
@@ -38,16 +32,15 @@ export default class PostServise {
 
     }
 
-    static async postTask(token: string, data: ITask) {
-        return this.Post<ITask>(token, 'TodoTasks/', data);
+    static async registerTeamForContest(data: IRegisterTeam) {
+
+        return this.Post<IRegisterTeam>('contest/register', data);
     }
 
-    static async postCategory(token: string, data: ICategory) {
-        return this.Post<ICategory>(token, 'TodoCategories/', data);
-    }
+    // static async postTask(token: string, data: ITask) {
+    //     return this.Post<ITask>(token, 'TodoTasks/', data);
+    // }
 
-    static async postPriority(token: string, data: IPriority) {
-        return this.Post<IPriority>(token, 'TodoPriorities/', data);
-    }
+    
 
 }

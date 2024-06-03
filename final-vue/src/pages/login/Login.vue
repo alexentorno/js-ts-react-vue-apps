@@ -6,11 +6,11 @@
 		
 			<div class="mb-4">
 				<label for="email" class="block text-sm font-medium text-slate-500 mb-2">Email Address</label>
-				<input type="email" v-model="email" id="email"  autocomplete="email" placeholder="name@example.com" class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+				<input type="email" v-model="email" id="email"  autocomplete="email" placeholder="name@example.com" class="bg-white shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
 			</div>
 			<div class="mb-4">
 				<label for="password" class="block text-sm font-medium text-slate-500 mb-2">Password</label>
-				<input type="password" v-model="pwd" id="password"  autocomplete="password" placeholder="Password"  class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+				<input type="password" v-model="pwd" id="password"  autocomplete="password" placeholder="Password"  class="bg-white shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
 			</div>
 
       <transition 

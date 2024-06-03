@@ -1,8 +1,8 @@
 <template>  
 <ul  class="flex items-center w-auto gap-5">
     <li>
-      <router-link :to="{ name: 'home' }" class="nav-link text-dark" :title="'Hello ' + state.userInfo.firstName + ' ' + state.userInfo.lastName">
-        Hello, {{ state.userInfo.firstName }} {{ state.userInfo.lastName }}!
+      <router-link :to="{ name: 'home' }" class="nav-link text-dark" :title="'Hello ' + state.userInfo.refreshToken + ' '  ">
+        Hello, !
       </router-link>
     </li>
     <li>

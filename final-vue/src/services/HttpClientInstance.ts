@@ -5,8 +5,7 @@ const baseURL = 'https://smarty.akaver.com/api/v1/';
 let userInfo = JSON.parse(localStorage.getItem('userInfo') ?? "[]");
 
 const httpClient = axios.create({
-    baseURL: baseURL,
-    
+    baseURL: baseURL
 });
 
 httpClient.interceptors.request.use((config) => {
