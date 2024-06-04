@@ -6,7 +6,8 @@ export const state = reactive({
 
 export interface IUserInfo {
     "jwt": string,
-    "refreshToken": string
+    "refreshToken": string,
+    "email": string
 }
 
 export const setUserInfo = (userInfo: IUserInfo | null) => {

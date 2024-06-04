@@ -15,7 +15,8 @@
   "dependencies": {
     "mitt": "^3.0.1",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-qr-reader": "^1.0.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",

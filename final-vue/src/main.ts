@@ -13,7 +13,11 @@ import ContestResults from './pages/contests/Results.vue';
 import ActivateEvent from './pages/contests/ActivateEvent.vue';
 import ParticipateInContest from './pages/contests/ParticipateInContest.vue';
 
-const app = createApp(App)
+import QrReader from 'vue3-qr-reader';
+
+
+const app = createApp(App);
+app.use(QrReader);
 
 const routes = [
 

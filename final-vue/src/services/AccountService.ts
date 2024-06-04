@@ -13,7 +13,8 @@ export default {
         try {
             const response = await httpClient.post<IUserInfo>("identity/Account/Login", loginData);
             if (response.status < 300) {
-                localStorage.setItem('userInfo', JSON.stringify(response.data));
+                //console.log("Login data ", response.data)
+                localStorage.setItem('userInfo', JSON.stringify({jwt: response.data.jwt, refreshToken: response.data.refreshToken, email: loginData.email}));
                 return {
                     data: response.data
                 }

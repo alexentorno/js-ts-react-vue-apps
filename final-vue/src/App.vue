@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="w-4/5 text m-auto mt-5 text-gray-700 border border-gray-100  bg-orange-50 rounded-xl shadow-xl">
+    <div id="app" class="w-4/5 text m-auto text-gray-700 border border-gray-100  bg-orange-50 rounded-xl shadow-xl">
       <Header />
       <RouterView class="min-h-screen rounded-xl"/>
       <Footer />

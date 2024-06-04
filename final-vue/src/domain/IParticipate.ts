@@ -1,3 +1,5 @@
+import type { IMarking } from "@/domain/IMarking.ts";
+
 export interface IParticipate {
     "userTeam": {
         "id": string,
@@ -15,12 +17,6 @@ export interface IParticipate {
     "penalty": number,
     "finalScore": number,
     "markings": [
-        {
-        "checkPointId": string,
-        "userTeamId": string,
-        "lat": string,
-        "lon": string,
-        "dt": string
-        }
+        IMarking
     ]
 }

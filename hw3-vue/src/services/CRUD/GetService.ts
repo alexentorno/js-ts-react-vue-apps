@@ -1,4 +1,3 @@
-import axios from "axios";
 import httpClient from "@/services/HttpClientInstance.ts";
 import type { IResultObject } from "@/services/IResultObject.ts";
 import type { IPriority } from "@/domain/IPriority.ts";
@@ -67,13 +66,6 @@ export default class GetService {
 
     static async Get<T extends object>(token: string, keyword: string): Promise<IResultObject<T[]>> {
         try {
-
-            // const httpClient = axios.create({
-            //     baseURL: baseUrl,
-            //     headers: {
-            //         Authorization: 'Bearer ' + token,
-            //     },
-            // });
 
             const response = await httpClient.get<T[]>(keyword);
 
